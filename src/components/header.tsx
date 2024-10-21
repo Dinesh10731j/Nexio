@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Switch } from './ui/switch'; // Ensure the path is correct
+import { Switch } from './ui/switch'; 
 import { Input } from './ui/input';
 import Link from 'next/link';
 import { Menu } from 'lucide-react'; 
@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false); // State for dark mode
+  const [isDarkMode, setIsDarkMode] = useState(false); 
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -27,7 +27,7 @@ const Header = () => {
         <div className="text-xl font-bold">Nexio</div>
 
         <nav className="hidden md:flex gap-7 space-x-6 items-center">
-          <Link href="/home" className="text-gray-800 dark:text-white hover:text-blue-500">Home</Link>
+          <Link href="/" className="text-gray-800 dark:text-white hover:text-blue-500">Home</Link>
           <Link href="/about" className="text-gray-800 dark:text-white hover:text-blue-500">About</Link>
           <Link href="/contact" className="text-gray-800 dark:text-white hover:text-blue-500">Contact</Link>
         </nav>
@@ -45,7 +45,7 @@ const Header = () => {
       {isOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900 shadow-md">
           <nav className="flex flex-col items-center space-y-4 p-4">
-            <Link href="/home" className="text-gray-800 dark:text-white hover:text-blue-500">Home</Link>
+            <Link href="/" className="text-gray-800 dark:text-white hover:text-blue-500">Home</Link>
             <Link href="/about" className="text-gray-800 dark:text-white hover:text-blue-500">About</Link>
             <Link href="/contact" className="text-gray-800 dark:text-white hover:text-blue-500">Contact</Link>
           </nav>
