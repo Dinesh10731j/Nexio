@@ -10,6 +10,7 @@ import dummyImage from "../../../assets/Image.png";
 import {useForm,SubmitHandler} from "react-hook-form";
 import { signupType } from '@/types/Types';
 
+
 const Signup = () => {
   
 const {handleSubmit,formState:{errors},reset,register} = useForm<signupType>();
