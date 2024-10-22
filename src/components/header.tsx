@@ -6,8 +6,10 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import Nexio_Logo from "../assets/Nexio_Logo.png";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
+  const activeLink = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleMenu = () => {
@@ -28,31 +30,31 @@ const Header = () => {
         <nav className="hidden md:flex gap-7 space-x-6 items-center">
           <Link
             href="/"
-            className="text-gray-800 dark:text-white hover:text-blue-500"
+            className={`${activeLink==='/'?'text-blue-500':'text-gray-800'}  dark:text-white hover:text-blue-500`}
           >
             Home
           </Link>
           <Link
             href="/about"
-            className="text-gray-800 dark:text-white hover:text-blue-500"
+            className={`${activeLink==='/about'?'text-blue-500':'text-gray-800'}  dark:text-white hover:text-blue-500`}
           >
             About
           </Link>
           <Link
             href="/contact"
-            className="text-gray-800 dark:text-white hover:text-blue-500"
+            className={`${activeLink==='/contact'?'text-blue-500':'text-gray-800'}  dark:text-white hover:text-blue-500`}
           >
             Contact
           </Link>
           <Link
             href="/blog"
-            className="text-gray-800 dark:text-white hover:text-blue-500"
+            className={`${activeLink==='/blog'?'text-blue-500':'text-gray-800'}  dark:text-white hover:text-blue-500`}
           >
             Blogs
           </Link>
           <Link
             href="/signup"
-            className="text-gray-800 dark:text-white hover:text-blue-500"
+            className={`${activeLink==='/signup'?'text-blue-500':'text-gray-800'} dark:text-white hover:text-blue-500`}
           >
             Signup
           </Link>
