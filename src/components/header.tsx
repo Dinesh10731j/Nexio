@@ -45,7 +45,7 @@ const Header = () => {
             Contact
           </Link>
           <Link
-            href=""
+            href="/blog"
             className="text-gray-800 dark:text-white hover:text-blue-500"
           >
             Blogs
