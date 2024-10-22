@@ -26,7 +26,7 @@ const Signup = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen flex items-center justify-center py-10 px-4 bg-gray-100">
+      <div className="min-h-screen flex items-center justify-center py-10 px-4">
         <div className="max-w-4xl w-full bg-white rounded-lg overflow-hidden md:flex shadow-md">
           {/* Image Section */}
           <div className="hidden md:block md:w-1/2">
