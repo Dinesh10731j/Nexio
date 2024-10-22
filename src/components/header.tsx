@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Switch } from './ui/switch'; 
+import { Switch } from './ui/switch';
 import { Input } from './ui/input';
 import Link from 'next/link';
 import { Menu } from 'lucide-react'; 
@@ -21,21 +21,24 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-md">
+    <header className=" dark:bg-gray-900 shadow-md">
       <div className="container mx-auto flex justify-evenly gap-7 items-center p-4">
         <Image src={Nexio_Logo} alt='nexio_logo' height={30} width={30} />
-        <div className="text-xl font-bold">Nexio</div>
+        <div className="text-xl font-bold text-blue-500">Nexio</div>
 
         <nav className="hidden md:flex gap-7 space-x-6 items-center">
           <Link href="/" className="text-gray-800 dark:text-white hover:text-blue-500">Home</Link>
           <Link href="/about" className="text-gray-800 dark:text-white hover:text-blue-500">About</Link>
           <Link href="/contact" className="text-gray-800 dark:text-white hover:text-blue-500">Contact</Link>
+          <Link href='' className='text-gray-800 dark:text-white hover:text-blue-500'>Blogs</Link>
+          <Link href='' className='text-gray-800 dark:text-white hover:text-blue-500'>Signup</Link>
+          
         </nav>
 
         <Input placeholder="Search..." className="block w-52" />
 
         {/* Theme Switch */}
-        <Switch checked={isDarkMode} onCheckedChange={handleMode} />
+        <Switch checked={isDarkMode} onCheckedChange={handleMode} className=''/>
 
         <div className="md:hidden">
           <Menu size={24} className="text-gray-800 dark:text-white cursor-pointer" onClick={toggleMenu} />
@@ -48,6 +51,10 @@ const Header = () => {
             <Link href="/" className="text-gray-800 dark:text-white hover:text-blue-500">Home</Link>
             <Link href="/about" className="text-gray-800 dark:text-white hover:text-blue-500">About</Link>
             <Link href="/contact" className="text-gray-800 dark:text-white hover:text-blue-500">Contact</Link>
+            <Link href='' className='text-gray-800 dark:text-white hover:text-blue-500'>Blogs</Link>
+            <Link href='' className='text-gray-800 dark:text-white hover:text-blue-500'>Signup</Link>
+     
+
           </nav>
         </div>
       )}
