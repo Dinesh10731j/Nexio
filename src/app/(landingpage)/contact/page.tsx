@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { contactType } from "@/types/Types";
 
+
 const Contact = () => {
   const {
     handleSubmit,
