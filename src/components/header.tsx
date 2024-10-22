@@ -51,7 +51,7 @@ const Header = () => {
             Blogs
           </Link>
           <Link
-            href=""
+            href="/signup"
             className="text-gray-800 dark:text-white hover:text-blue-500"
           >
             Signup
@@ -104,7 +104,7 @@ const Header = () => {
               Blogs
             </Link>
             <Link
-              href=""
+              href="/signup"
               className="text-gray-800 dark:text-white hover:text-blue-500"
             >
               Signup
