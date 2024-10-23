@@ -66,7 +66,7 @@ const Header = () => {
         <Switch
           checked={isDarkMode}
           onCheckedChange={handleMode}
-          className=""
+         
         />
 
         <div className="md:hidden">
