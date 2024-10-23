@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Switch } from "./ui/switch";
+//import { Switch } from "./ui/switch";
 import { Input } from "./ui/input";
 import Link from "next/link";
 import { Menu } from "lucide-react";
@@ -10,6 +10,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "@/redux/slices/themeSlice";
+import { Moon,Sun } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface themeState {
   theme: string;
@@ -106,8 +108,11 @@ const Header = () => {
     className={`block w-52 mt-1 p-2 rounded-md shadow-sm ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-gray-300 placeholder-gray-500' : 'border-gray-300 bg-white text-gray-800 placeholder-gray-500'} focus:ring-blue-500 focus:border-blue-500`}
   />
 
-        {/* Theme Switch */}
-        <Switch checked={theme === "dark"} onCheckedChange={handleMode} />
+
+<Button onClick={handleMode}>
+{theme === 'dark'?(<Sun className="text-orange-300"/>):(<Moon className="text-gray-600"/>)}
+</Button>
+      
 
         <div className="md:hidden">
           <Menu
