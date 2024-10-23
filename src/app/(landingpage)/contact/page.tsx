@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -9,7 +9,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { contactType } from "@/types/Types";
+import { useSelector } from "react-redux";
 
+interface themeState {
+  theme: string;
+}
+
+interface RootState {
+  theme: themeState;
+}
 
 const Contact = () => {
   const {
@@ -21,47 +29,40 @@ const Contact = () => {
 
   const onContactSubmit: SubmitHandler<contactType> = (data) => {
     console.log(data);
-
     reset();
   };
+
+  const theme = useSelector((state: RootState) => state.theme.theme);
+
   return (
     <>
       <Header />
-      <div className="min-h-screen py-10 px-4">
-        <div className="max-w-5xl mx-auto  rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">
+      <div className={`min-h-screen py-10 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+        <div className={`max-w-5xl mx-auto rounded-lg p-8 `}>
+          <h2 className={`text-3xl font-bold mb-4 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
             Contact Us
           </h2>
-          <p className="text-center text-gray-600 mb-8">
-            Feel free to reach out to us via the form below or through our
-            contact information.
+          <p className={`text-center mb-8 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+            Feel free to reach out to us via the form below or through our contact information.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Contact Form */}
-            <form
-              className="space-y-6 md:col-span-2"
-              onSubmit={handleSubmit(onContactSubmit)}
-            >
+            <form className="space-y-6 md:col-span-2" onSubmit={handleSubmit(onContactSubmit)}>
               <div>
-                <label
-                  className="block text-sm font-medium text-gray-700"
-                  htmlFor="name"
-                >
+                <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`} htmlFor="name">
                   Name
                 </label>
                 <Input
                   {...register("name", {
                     required: "Name is required",
                     validate: {
-                      minLength: (value) =>
-                        value.length > 3 ||
-                        "Name must be more than 3 characters",
+                      minLength: (value) => value.length > 3 || "Name must be more than 3 characters",
                     },
                   })}
                   type="text"
                   placeholder="Enter name"
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  className={`mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white'}`}
                 />
               </div>
 
@@ -70,10 +71,7 @@ const Contact = () => {
               )}
 
               <div>
-                <label
-                  className="block text-sm font-medium text-gray-700"
-                  htmlFor="email"
-                >
+                <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`} htmlFor="email">
                   Email
                 </label>
                 <Input
@@ -82,12 +80,10 @@ const Contact = () => {
                   {...register("email", {
                     required: "E-mail is required",
                     validate: {
-                      isValidEmail: (value) =>
-                        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ||
-                        "Please enter a valid email address",
+                      isValidEmail: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || "Please enter a valid email address",
                     },
                   })}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  className={`mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white'}`}
                 />
               </div>
               {errors.email && (
@@ -95,10 +91,7 @@ const Contact = () => {
               )}
 
               <div>
-                <label
-                  className="block text-sm font-medium text-gray-700"
-                  htmlFor="message"
-                >
+                <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`} htmlFor="message">
                   Message
                 </label>
                 <Textarea
@@ -106,24 +99,20 @@ const Contact = () => {
                   {...register("message", {
                     required: "Message is required",
                     validate: {
-                      minLength: (value) =>
-                        value.length > 10 ||
-                        "Message must be more than 10 characters",
+                      minLength: (value) => value.length > 10 || "Message must be more than 10 characters",
                     },
                   })}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  className={`mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white'}`}
                 />
               </div>
               {errors.message && (
-                <p className="text-sm text-red-700">
-                  {errors.message?.message}
-                </p>
+                <p className="text-sm text-red-700">{errors.message?.message}</p>
               )}
 
               <div>
                 <Button
                   type="submit"
-                  className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-2"
+                  className={`w-full py-2 px-4 rounded-md shadow ${theme === 'dark' ? 'bg-blue-600 text-white hover:bg-blue-500' : 'bg-blue-500 text-white hover:bg-blue-700'} focus:ring-blue-500 focus:ring-offset-2`}
                 >
                   Send Message
                 </Button>
@@ -140,20 +129,20 @@ const Contact = () => {
               />
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-800">Address</h3>
-                <p className="text-gray-600">
+                <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-800'}`}>Address</h3>
+                <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                   123 Main Street, <br /> City, Country 12345
                 </p>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-800">Email</h3>
-                <p className="text-gray-600">contact@company.com</p>
+                <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-800'}`}>Email</h3>
+                <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>contact@company.com</p>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-800">Phone</h3>
-                <p className="text-gray-600">+123 456 7890</p>
+                <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-800'}`}>Phone</h3>
+                <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>+123 456 7890</p>
               </div>
             </div>
           </div>
