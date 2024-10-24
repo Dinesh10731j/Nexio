@@ -27,7 +27,7 @@ export const UseSignup = () => {
       const token = data?.accessToken;
       Cookies.set("token", token);
     },
-    onError: (error) => {
+    onError: (error: unknown) => {
       if (error instanceof Error) {
         toast.error(error?.message);
       }
