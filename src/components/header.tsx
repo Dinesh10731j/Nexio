@@ -50,7 +50,7 @@ const Header = () => {
         theme === "dark" ? "dark:bg-gray-900" : "bg-white"
       } shadow-md`}
     >
-      <div className="container mx-auto flex justify-evenly gap-7 items-center p-4">
+      <div className="container mx-auto flex justify-evenly gap-2 md:gap-7 items-center p-4">
       <Image
           src={Nexio_Logo}
           alt="nexio_logo"
