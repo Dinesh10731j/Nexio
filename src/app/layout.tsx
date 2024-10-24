@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReactReduxProvider } from "./react-redux-provider";
-
+import { ReactQueryProvider } from "./react-query-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,14 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        
-      >
-
-        <ReactReduxProvider>
-        {children}
-        </ReactReduxProvider>
-       
+      <body>
+        <ReactQueryProvider>
+          <ReactReduxProvider>{children}</ReactReduxProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
