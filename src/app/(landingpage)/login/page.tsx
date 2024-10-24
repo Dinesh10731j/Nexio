@@ -10,6 +10,7 @@ import dummyImage from "../../../assets/Image.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loginType } from "@/types/Types";
 import { useSelector } from "react-redux";
+import { UseLogin } from "@/hooks/useLogin";
 
 interface themeState {
   theme: string;
@@ -26,11 +27,15 @@ const Login = () => {
     formState: { errors },
     reset,
   } = useForm<loginType>();
+  const loginMutation = UseLogin()
 
   const onLogin: SubmitHandler<loginType> = (data) => {
-    console.log(data);
+    loginMutation.mutate(data);
     reset();
   };
+
+
+  
 
   const theme = useSelector((state: RootState) => state.theme.theme);
 
@@ -49,7 +54,7 @@ const Login = () => {
           </div>
           {/* Login Form Section */}
           <div className={`w-full p-8 md:w-1/2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-800'}`}>
-            <h2 className={`text-3xl font-bold text-center mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+            <h2 className={`text-xl md:text-3xl font-bold text-center mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               Login to Your Account
             </h2>
             <form className="space-y-4" onSubmit={handleSubmit(onLogin)}>
