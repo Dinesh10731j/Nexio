@@ -5,6 +5,7 @@ import { Endpoints } from "@/endpoints/endpoints";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 const { Login } = Endpoints;
+import { useRouter } from "next/navigation";
 
 const userLogin = async (logindata: loginType) => {
   try {
@@ -19,6 +20,7 @@ const userLogin = async (logindata: loginType) => {
 };
 
 export const UseLogin = () => {
+  const router = useRouter();
   return useMutation({
     mutationKey: ["userLogin"],
     mutationFn: userLogin,
@@ -26,7 +28,12 @@ export const UseLogin = () => {
       toast.success(data?.message);
 
       const token = data?.accessToken;
+
       Cookies.set("token", token);
+
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 2000);
     },
     onError: (error: unknown) => {
       if (error instanceof Error) {
