@@ -34,26 +34,18 @@ const Sidebar = () => {
             <Home size={20} />
             {isOpen && <span>Dashboard</span>}
           </Link>
-          <Link href="/createpost" className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition">
+          <Link href="/dashboard/create-post" className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition">
             <Plus size={20} />
             {isOpen && <span>Create Post</span>}
           </Link>
-          <Link href="/profile" className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition">
+          <Link href="/dashboard/profile" className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition">
             <User size={20} />
             {isOpen && <span>Profile</span>}
           </Link>
         </nav>
       </div>
 
-      {/* Main Content */}
-      <div
-        className={`flex-1 transition-margin duration-300 ${
-          isOpen ? "ml-64" : "ml-20"
-        } p-5 lg:ml-20`}
-      >
-        <h1 className="text-2xl font-semibold text-gray-800">Welcome to Nexio!</h1>
-        {/* Add main content here */}
-      </div>
+     
     </div>
   );
 };
