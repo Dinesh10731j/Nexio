@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Sidebar from '@/components/dashboardSidebar/dashoardSidebar'
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <>
+    <Sidebar/>
+    </>
   )
 }
 
