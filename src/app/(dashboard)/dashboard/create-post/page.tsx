@@ -5,16 +5,18 @@ import DashboardHeader from '@/components/dashboardHeader/dashboardHeader';
 import { Button } from '@/components/ui/button';
 import ReactQuillEditor from '@/components/ReactQuill';
 import { SetStateAction, useState } from 'react';
+import { UseCreateBlog } from '@/hooks/useCreateBlog';
 
 const CreatePost = () => {
+    
   const [content, setContent] = useState('');
-
+const createPostMutation = UseCreateBlog();
   const handleContentChange = (value: SetStateAction<string>) => {
     setContent(value);
   };
 
   const handlePublish = () => {
-    console.log('Post Content:', content);
+    createPostMutation.mutate(content);
   };
 
   return (
