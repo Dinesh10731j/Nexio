@@ -1,22 +1,25 @@
-'use client';
+"use client";
 
+import React, { useRef } from 'react';
 import Sidebar from '@/components/dashboardSidebar/dashoardSidebar';
 import DashboardHeader from '@/components/dashboardHeader/dashboardHeader';
 import { Button } from '@/components/ui/button';
-import ReactQuillEditor from '@/components/ReactQuill';
-import { SetStateAction, useState } from 'react';
-import { UseCreateBlog } from '@/hooks/useCreateBlog';
+import Editorjs from '@/components/EditorJs';
+import EditorJS from "@editorjs/editorjs";
 
 const CreatePost = () => {
-    
-  const [content, setContent] = useState('');
-const createPostMutation = UseCreateBlog();
-  const handleContentChange = (value: SetStateAction<string>) => {
-    setContent(value);
-  };
+  const editorRef = useRef<EditorJS | null>(null);
 
-  const handlePublish = () => {
-    createPostMutation.mutate(content);
+  const handlePublish = async () => {
+    if (editorRef.current) {
+      try {
+        const savedData = await editorRef.current.save();
+        console.log('Saved Data:', savedData);
+        // Process or send savedData to the backend as needed
+      } catch (error) {
+        console.error('Saving failed: ', error);
+      }
+    }
   };
 
   return (
@@ -30,7 +33,7 @@ const createPostMutation = UseCreateBlog();
               Create a New Post
             </h2>
             <div className="w-80 ml-10 md:ml-0 md:w-full px-4 sm:px-6 lg:px-8">
-              <ReactQuillEditor value={content} onChange={handleContentChange} />
+              <Editorjs onInit={(editor) => (editorRef.current = editor)} />
             </div>
             <Button
               onClick={handlePublish}

@@ -10,6 +10,8 @@ const createBlog = async (blog: unknown) => {
             "Content-Type":'application/json'
         }
     });
+
+   
     return response.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
