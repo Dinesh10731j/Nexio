@@ -1,7 +1,7 @@
 import { Sun, Moon, User } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-
+import dummyImage from "../../assets/Image.png"
 const DashboardHeader = () => {
     const [darkMode, setDarkMode] = useState(false);
     
@@ -24,7 +24,7 @@ const DashboardHeader = () => {
                 <div className="flex items-center gap-2">
                     <span className="text-gray-800 dark:text-gray-300">User Name</span>
                     <Image
-                        src="" 
+                        src={dummyImage}
                         alt="User Profile"
                         className="w-8 h-8 rounded-full"
                     />

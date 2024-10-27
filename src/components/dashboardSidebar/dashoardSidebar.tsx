@@ -11,12 +11,12 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100 ">
       {/* Sidebar */}
       <div
         className={`${
           isOpen ? "w-64" : "w-20"
-        } bg-gray-800 text-gray-100 h-full transition-width duration-300 fixed lg:relative`}
+        } bg-gray-800 text-gray-100 h-full transition-width duration-300 mt-14 fixed lg:relative`}
       >
         {/* Logo and Toggle */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
