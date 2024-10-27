@@ -3,10 +3,19 @@
 import Sidebar from '@/components/dashboardSidebar/dashoardSidebar';
 import DashboardHeader from '@/components/dashboardHeader/dashboardHeader';
 import { Button } from '@/components/ui/button';
-
+import ReactQuillEditor from '@/components/ReactQuill';
+import { SetStateAction, useState } from 'react';
 
 const CreatePost = () => {
+  const [content, setContent] = useState('');
 
+  const handleContentChange = (value: SetStateAction<string>) => {
+    setContent(value);
+  };
+
+  const handlePublish = () => {
+    console.log('Post Content:', content);
+  };
 
   return (
     <>
@@ -18,12 +27,11 @@ const CreatePost = () => {
             <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">
               Create a New Post
             </h2>
-            <div
-              id="editorjs"
-              className="border w-[300px] border-gray-300 p-2 mx-auto h-[400px] max-w-[600px] md:w-[80%] lg:w-[600px]"
-            ></div>
+            <div className="w-80 ml-10 md:ml-0 md:w-full px-4 sm:px-6 lg:px-8">
+              <ReactQuillEditor value={content} onChange={handleContentChange} />
+            </div>
             <Button
-            
+              onClick={handlePublish}
               className="mt-4 z-20 cursor-pointer px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
             >
               Publish Post
