@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
-import EditorJS from "@editorjs/editorjs";
+import React, { useEffect, useRef } from "react";
+import EditorJS, { ToolConstructable } from "@editorjs/editorjs";
 import ImageTool from "@editorjs/image";
 import List from "@editorjs/list";
 import Paragraph from "@editorjs/paragraph";
+import Header from "@editorjs/header";
+import Table from "@editorjs/table";
+import { UseUploadToCloudinary } from "@/hooks/useUploadImageToCloudinary";
 
 interface EditorjsProps {
   onInit: (editor: EditorJS) => void;
@@ -15,29 +18,79 @@ const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
 
   useEffect(() => {
     if (editorInstanceRef.current) {
-      return; 
+      return;
     }
 
     const editor = new EditorJS({
-      holder: 'editorjs',
+      holder: "editorjs",
       tools: {
-        paragraph: {
-          class: Paragraph,
+        header: {
+          class: Header as unknown as ToolConstructable,
           inlineToolbar: true,
           config: {
-            placeholder: "Start writing blog....",
+            placeholder: "Enter your blog title",
+            levels: [1],
+            defaultLevel: 1,
+          },
+        },
+        image: {
+          class: ImageTool as ToolConstructable,
+          config: {
+            uploader: {
+             
+              async uploadByFile(file: File) {
+                try {
+                  const url = await UseUploadToCloudinary(file);
+                  return {
+                    success: 1,
+                    file: {
+                      url, 
+                    },
+                  };
+                } catch (error) {
+                  console.error("Image upload failed:", error);
+                  return { success: 0, message: "Image upload failed. Try again." };
+                }
+              },
+            },
+          },
+        },
+        paragraph: {
+          class: Paragraph as ToolConstructable,
+          inlineToolbar: true,
+          config: {
+            placeholder: "Write your blog content here...",
           },
         },
         list: List,
-        image: ImageTool,
+        table: Table,
       },
       autofocus: true,
       data: {
         blocks: [
           {
+            type: "header",
+            data: {
+              level: 1,
+              text: "Enter your blog title",
+            },
+          },
+          {
+            type: "image",
+            data: {
+              file: {
+                url: "", 
+              },
+              caption: "Write a caption",
+              withBorder: true,
+              stretched: true,
+              withBackground: true,
+            },
+          },
+          {
             type: "paragraph",
             data: {
-              text: "",
+              text: "Write the main content of your blog here...",
             },
           },
         ],

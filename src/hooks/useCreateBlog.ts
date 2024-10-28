@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const { Createblog } = Endpoints;
 const createBlog = async (blog: unknown) => {
   try {
-    const response = await axiosInstance.post(Createblog, {blog},{
+    const response = await axiosInstance.post(Createblog, blog,{
         headers:{
             "Content-Type":'application/json'
         }

@@ -14,6 +14,7 @@
     "@editorjs/image": "^2.9.3",
     "@editorjs/list": "^1.10.0",
     "@editorjs/paragraph": "^2.11.6",
+    "@editorjs/table": "^2.4.2",
     "@nextui-org/progress": "^2.0.34",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-separator": "^1.1.0",

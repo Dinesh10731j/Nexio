@@ -1,21 +1,20 @@
 "use client";
-
 import React, { useRef } from 'react';
 import Sidebar from '@/components/dashboardSidebar/dashoardSidebar';
 import DashboardHeader from '@/components/dashboardHeader/dashboardHeader';
 import { Button } from '@/components/ui/button';
 import Editorjs from '@/components/EditorJs';
 import EditorJS from "@editorjs/editorjs";
+import { UseCreateBlog } from '@/hooks/useCreateBlog';
 
 const CreatePost = () => {
   const editorRef = useRef<EditorJS | null>(null);
-
+const createBlogMutation = UseCreateBlog()
   const handlePublish = async () => {
     if (editorRef.current) {
       try {
         const savedData = await editorRef.current.save();
-        console.log('Saved Data:', savedData);
-        // Process or send savedData to the backend as needed
+     createBlogMutation.mutate(savedData.blocks);
       } catch (error) {
         console.error('Saving failed: ', error);
       }
