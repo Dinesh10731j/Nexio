@@ -9,12 +9,12 @@ import { UseCreateBlog } from '@/hooks/useCreateBlog';
 
 const CreatePost = () => {
   const editorRef = useRef<EditorJS | null>(null);
-const createBlogMutation = UseCreateBlog()
+const createBlogMutation = UseCreateBlog();
   const handlePublish = async () => {
     if (editorRef.current) {
       try {
         const savedData = await editorRef.current.save();
-     createBlogMutation.mutate(savedData.blocks);
+     createBlogMutation.mutate(savedData);
       } catch (error) {
         console.error('Saving failed: ', error);
       }
