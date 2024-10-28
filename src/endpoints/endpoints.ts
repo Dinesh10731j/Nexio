@@ -3,4 +3,5 @@ export const Endpoints = {
     Signup:'/api/user/signup',
     Contact:'/api/user/message',
     Createblog:'/api/blog/create-post',
+    Blogs:'/api/blogs',
 }

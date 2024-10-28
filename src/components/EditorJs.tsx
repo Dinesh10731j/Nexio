@@ -17,7 +17,7 @@ const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
   const editorInstanceRef = useRef<EditorJS | null>(null);
 
   useEffect(() => {
-    if (editorInstanceRef.current) {
+    if (editorInstanceRef.current) { 
       return;
     }
 
@@ -81,7 +81,7 @@ const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
               file: {
                 url: "", 
               },
-              caption: "Write a caption",
+              caption: "Write a description",
               withBorder: true,
               stretched: true,
               withBackground: true,
