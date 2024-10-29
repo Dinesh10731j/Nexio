@@ -32,7 +32,7 @@ const createBlogMutation = UseCreateBlog();
               Create a New Post
             </h2>
             <div className="w-80 ml-10 md:ml-0 md:w-full px-4 sm:px-6 lg:px-8">
-              <Editorjs onInit={(editor) => (editorRef.current = editor)} />
+              <Editorjs  onInit={(editor) => (editorRef.current = editor)} />
             </div>
             <Button
               onClick={handlePublish}
