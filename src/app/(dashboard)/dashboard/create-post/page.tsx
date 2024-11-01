@@ -1,7 +1,5 @@
 "use client";
 import React, { useRef } from 'react';
-import Sidebar from '@/components/dashboardSidebar/dashoardSidebar';
-import DashboardHeader from '@/components/dashboardHeader/dashboardHeader';
 import { Button } from '@/components/ui/button';
 import Editorjs from '@/components/EditorJs';
 import EditorJS from "@editorjs/editorjs";
@@ -23,11 +21,11 @@ const createBlogMutation = UseCreateBlog();
 
   return (
     <>
-      <DashboardHeader />
+   
       <div className="flex flex-col transition-colors duration-300">
-        <div className="flex flex-1">
-          <Sidebar />
-          <main className="flex-1 p-4 flex flex-col items-center justify-center">
+       
+        
+          <main className="flex-1 h-[100vh] w-[100%] p-4 flex flex-col items-center justify-center">
             <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">
               Create a New Post
             </h2>
@@ -41,7 +39,7 @@ const createBlogMutation = UseCreateBlog();
               Publish Post
             </Button>
           </main>
-        </div>
+        
       </div>
     </>
   );

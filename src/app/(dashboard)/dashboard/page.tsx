@@ -1,7 +1,4 @@
 'use client';
-
-import Sidebar from '@/components/dashboardSidebar/dashoardSidebar';
-import DashboardHeader from '@/components/dashboardHeader/dashboardHeader';
 import { useEffect, useState } from 'react';
 
 const Dashboard = () => {
@@ -21,9 +18,9 @@ const Dashboard = () => {
 
   return (
     <>
-      <DashboardHeader />
+  
       <div className="flex min-h-screen dark:bg-gray-900">
-        <Sidebar />
+     
         <main className="flex-1 p-6 space-y-6 mt-20">
           {/* Welcome Section */}
           <section className="bg-white dark:bg-gray-800 p-6 rounded-lg text-center">
