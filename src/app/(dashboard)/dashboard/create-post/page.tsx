@@ -22,7 +22,7 @@ const createBlogMutation = UseCreateBlog();
   return (
     <>
    
-      <div className="flex flex-col transition-colors duration-300">
+      <div className="flex min-h-screen items-center justify-center w-screen dark:bg-gray-900 flex-col transition-colors duration-300">
        
         
           <main className="flex-1 h-[100vh] w-[100%] p-4 flex flex-col items-center justify-center">
