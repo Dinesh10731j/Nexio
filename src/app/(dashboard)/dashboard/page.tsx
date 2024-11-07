@@ -19,11 +19,11 @@ const Dashboard = () => {
   return (
     <>
   
-      <div className="flex min-h-screen dark:bg-gray-900">
+      <div className=" flex items-center justify-center w-screen min-h-screen dark:bg-gray-900">
      
         <main className="flex-1 p-6 space-y-6 mt-20">
           {/* Welcome Section */}
-          <section className="bg-white dark:bg-gray-800 p-6 rounded-lg text-center">
+          <section className=" dark:bg-gray-800 p-6 rounded-lg text-center">
             <h2 className=" text-xl md:text-3xl font-bold text-gray-800 dark:text-white">
               {greeting},<span className='text-blue-500'>{userName}</span>
             </h2>
