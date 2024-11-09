@@ -29,11 +29,11 @@ export const UseLogin = () => {
 
       const token = data?.accessToken;
 
-      Cookies.set("token", token);
+      Cookies.set("token", token,{expires:1/24});
 
       setTimeout(() => {
         router.push("/dashboard");
-      }, 2000);
+      },1000);
     },
     onError: (error: unknown) => {
       if (error instanceof Error) {
