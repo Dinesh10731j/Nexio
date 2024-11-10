@@ -24,9 +24,12 @@ export interface BlogsResponse {
   }
   
   export interface Blogs {
-    readingTime: ReactNode;
-    publishedDate: ReactNode;
-    author: any;
+    readingTime:string;
+    publishedDate: string;
+    name:string,
+    author:{
+name:string,
+    };
     image: Image;
     _id: string;
     title: string;

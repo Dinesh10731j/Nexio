@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { UseAllBlogs } from "@/hooks/useBlogs";
 import { Blogs } from "@/types/Types";
 import { Timer } from "lucide-react";
-
+import Link from "next/link";
 interface themeState {
   theme: string;
 }
@@ -70,10 +70,12 @@ const Blog = () => {
                   >
                     {`${blog.title}`}
                   </h2>
-                  <p  className={`mb-4 flex text-green-700 gap-2 text-center ${
+                  <p
+                    className={`mb-4 flex text-green-700 gap-2 text-center ${
                       theme === "dark" ? "text-gray-400" : "text-gray-600"
-                    }`}>
-                  <Timer/> {`${blog?.readingTime} minutes read `}
+                    }`}
+                  >
+                    <Timer /> {`${blog?.readingTime} minutes read `}
                   </p>
                   <p
                     className={`mb-4 ${
@@ -82,26 +84,35 @@ const Blog = () => {
                   >
                     {blog?.image?.caption || "No caption available"}
                   </p>
-                  <p  className={`mb-4 ${
+                  <p
+                    className={`mb-4 ${
                       theme === "dark" ? "text-gray-400" : "text-gray-600"
-                    }`}>
-                    Author:{blog?.author?.name}
-                  </p>
-                  <p  className={`mb-4 ${
-                      theme === "dark" ? "text-gray-400" : "text-gray-600"
-                    }`}>
-                    Publishdate:{new Date(blog?.publishedDate).toLocaleDateString()}
-                  </p>
-                  
-
-
-                  <Button
-                    className={`bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-150 ${
-                      theme === "dark" ? "hover:bg-blue-500" : ""
                     }`}
                   >
-                    Read More
-                  </Button>
+                    <span>
+                      By <strong>{blog?.author?.name}</strong>
+                    </span>
+                  </p>
+                  <p
+                    className={`mb-4 ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    Publishdate:
+                    <strong>
+                      {new Date(blog?.publishedDate).toLocaleDateString()}
+                    </strong>
+                  </p>
+
+                  <Link href={`blog/${blog?._id}`}>
+                    <Button
+                      className={`bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-150 ${
+                        theme === "dark" ? "hover:bg-blue-500" : ""
+                      }`}
+                    >
+                      Read More
+                    </Button>
+                  </Link>
                 </div>
               </div>
             ))
