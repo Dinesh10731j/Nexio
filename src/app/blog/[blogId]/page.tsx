@@ -42,7 +42,7 @@ const SingleBlog = () => {
     <>
       <Header />
       <div
-        className={`mt-20 mx-auto px-4 py-10 ${
+        className={` mx-auto px-4 py-10 ${
           theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-800"
         }`}
       >
