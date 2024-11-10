@@ -35,11 +35,11 @@ const Home = () => {
   // Skeleton Loader Component
   const SkeletonLoader = () => (
     <div className="p-4 rounded-xl shadow-xl">
-      <Skeleton className="h-40 w-full rounded-lg mb-4" />
-      <Skeleton className="h-6 w-3/4 rounded-md mb-2" />
-      <Skeleton className="h-4 w-1/2 rounded-md mb-2" />
-      <Skeleton className="h-4 w-1/3 rounded-md mb-4" />
-      <Skeleton className="h-8 w-full rounded-md" />
+      <Skeleton className="h-40 w-full rounded-lg mb-4 bg-gray-400" />
+      <Skeleton className="h-6 w-3/4 rounded-md mb-2 bg-gray-400" />
+      <Skeleton className="h-4 w-1/2 rounded-md mb-2 bg-gray-400" />
+      <Skeleton className="h-4 w-1/3 rounded-md mb-4 bg-gray-400" />
+      <Skeleton className="h-8 w-full rounded-md bg-gray-400" />
     </div>
   );
 
@@ -89,7 +89,7 @@ const Home = () => {
             >
               Discover the latest trends and in-depth insights into the world of technology.
             </motion.p>
-            <Button variant="default">Explore Now</Button>
+            <Button variant="default" className="text-white bg-blue-400 rounded-lg">Explore Now</Button>
           </div>
         </div>
 
@@ -117,7 +117,7 @@ const Home = () => {
               animate={{ opacity: isContentInView ? 1 : 0 }}
               transition={{ delay: 0.3, duration: 1 }}
             >
-              {allBlogs.slice(0,3).map((blog: Blogs) => (
+              {allBlogs?.slice(0,3)?.map((blog: Blogs) => (
                 <motion.div
                   key={blog._id}
                   className={`p-4 rounded-xl shadow-xl ${
