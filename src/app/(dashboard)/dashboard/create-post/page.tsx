@@ -1,10 +1,10 @@
 "use client";
 import React, { useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import Editorjs from '@/components/EditorJs';
 import EditorJS from "@editorjs/editorjs";
 import { UseCreateBlog } from '@/hooks/useCreateBlog';
-
+import dynamic from 'next/dynamic';
+const Editorjs = dynamic(() => import("@/components/EditorJs"), { ssr: false });
 const CreatePost = () => {
   const editorRef = useRef<EditorJS | null>(null);
 const createBlogMutation = UseCreateBlog();
