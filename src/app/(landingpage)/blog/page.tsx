@@ -75,7 +75,7 @@ const Blog = () => {
                       theme === "dark" ? "text-gray-400" : "text-gray-600"
                     }`}
                   >
-                    <Timer /> {`${blog?.readingTime} minutes read `}
+                    <Timer /> {`${blog?.readingTime} min read `}
                   </p>
                   <p
                     className={`mb-4 ${
