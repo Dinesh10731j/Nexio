@@ -120,7 +120,7 @@ const Home = () => {
               {allBlogs?.slice(0,3)?.map((blog: Blogs) => (
                 <motion.div
                   key={blog._id}
-                  className={`p-4 rounded-xl shadow-xl ${
+                  className={`p-7 rounded-xl shadow-xl ${
                     theme === "dark" ? "bg-gray-800" : "bg-white"
                   } hover:scale-105 transform transition-all duration-300`}
                   initial={{ y: 50, opacity: 0 }}
@@ -134,7 +134,7 @@ const Home = () => {
                     width={400}
                     className="rounded-lg mb-4"
                   />
-                  <h3 className="text-2xl font-semibold mb-2">{blog.title}</h3>
+                  <h3 className="text-2xl font-semibold mb-2 truncate">{blog.title}</h3>
                   <div className="text-gray-500 text-sm mb-3 flex gap-2">
                     By <strong>{blog.author?.name}</strong> |{" "}
                     {new Date(blog.publishedDate).toLocaleDateString()} |{" "}
@@ -142,21 +142,31 @@ const Home = () => {
                       <Timer size={16} /> {blog.readingTime} min read
                     </span>
                   </div>
-                  <p className="mb-4 text-gray-600">
-                    {blog.content.slice(0, 100)}...
+                  <p className="mb-4 text-gray-600 truncate">
+                    {blog.content}
                   </p>
-                  <Button asChild variant="ghost" className="bg-blue-400 text-white rounded-md w-full bottom-3" >
-                    <Link href={`/blog/${blog._id}`}>Read More</Link>
-                  </Button>
+
+                  <Link href={`blog/${blog?._id}`}>
+                  <Button
+                      className={`w-full py-3 rounded-full text-white font-medium shadow-md transition-all duration-200 ${
+                        theme === "dark"
+                          ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
+                          : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600"
+                      }`}
+                    >
+                      Read More
+                    </Button>
+                  </Link>
+                 
                 </motion.div>
               ))}
             </motion.div>
           )}
         </section>
       </motion.div>
-      <section className="py-4">
+    
         <Footer />
-      </section>
+      
     </>
   );
 };
