@@ -62,7 +62,7 @@ const Signup = () => {
             }`}
           >
             <h2
-              className={`text-3xl font-bold text-center mb-6 ${
+              className={` text-xl md:text-3xl font-bold text-center mb-6 ${
                 theme === "dark" ? "text-white" : "text-gray-800"
               }`}
             >

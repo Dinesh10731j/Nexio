@@ -48,7 +48,7 @@ const Contact = () => {
       >
         <div className={`max-w-5xl mx-auto rounded-lg p-8 `}>
           <h2
-            className={`text-3xl font-bold mb-4 text-center ${
+            className={`text-xl md:text-3xl font-bold mb-4 text-center ${
               theme === "dark" ? "text-white" : "text-gray-800"
             }`}
           >
