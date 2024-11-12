@@ -61,7 +61,7 @@ const SingleBlog = () => {
 
           {/* Blog Info Section */}
           <div className="lg:w-1/3">
-            <h1 className="text-4xl font-bold mb-4">{blog?.title}</h1>
+            <h1 className="text-2xl md:text-4xl font-bold mb-4">{blog?.title}</h1>
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-gray-500 text-sm mb-4">
               <span className="flex items-center gap-2">
                 <UserCircle className="w-5 h-5" />
