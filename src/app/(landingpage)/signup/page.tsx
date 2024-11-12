@@ -11,6 +11,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { signupType } from "@/types/Types";
 import { useSelector } from "react-redux";
 import { UseSignup } from "@/hooks/useSignup";
+import {motion} from "framer-motion"
 
 interface themeState {
   theme: string;
@@ -36,10 +37,34 @@ const Signup = () => {
 
   const theme = useSelector((state: RootState) => state.theme.theme);
 
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } },
+  };
+  
+  const inputVariants = {
+    rest: { scale: 1 },
+    hover: { scale: 1.05, transition: { type: "spring", stiffness: 300 } },
+  };
+  
+  const buttonVariants = {
+    rest: { scale: 1 },
+    hover: { scale: 1.1, transition: { type: "spring", stiffness: 200 } },
+    tap: { scale: 0.95 },
+  };
+  
+  const imageVariants = {
+    hover: { scale: 1.05, transition: { duration: 0.5 } },
+  };
+
   return (
     <>
       <Header />
-      <div
+      <motion.div
+       initial="hidden"
+       animate="visible"
+       variants={containerVariants}
         className={`min-h-screen flex items-center justify-center py-10 px-4 ${
           theme === "dark" ? "bg-gray-900" : "bg-white"
         }`}
@@ -48,15 +73,23 @@ const Signup = () => {
           className={`max-w-4xl w-full rounded-lg overflow-hidden md:flex shadow-md `}
         >
           {/* Image Section */}
-          <div className="hidden md:block md:w-1/2">
+          <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={imageVariants}
+          className="hidden md:block md:w-1/2">
             <Image
               src={dummyImage}
               alt="Signup Banner"
               className="w-full h-full object-cover"
             />
-          </div>
+          </motion.div>
           {/* Signup Form Section */}
-          <div
+          <motion.div
+           variants={inputVariants}
+           initial="rest"
+           whileHover="hover"
+          
             className={`w-full p-8 md:w-1/2 ${
               theme === "dark" ? "text-gray-300" : "text-gray-800"
             }`}
@@ -69,7 +102,11 @@ const Signup = () => {
               Create an Account
             </h2>
             <form className="space-y-4" onSubmit={handleSubmit(onSignUp)}>
-              <div>
+              <motion.div
+              variants={inputVariants}
+               initial="rest"
+           whileHover="hover"
+              >
                 <label
                   className={`block text-sm font-medium ${
                     theme === "dark" ? "text-gray-400" : "text-gray-700"
@@ -94,7 +131,7 @@ const Signup = () => {
                   }`}
                   placeholder="John Doe"
                 />
-              </div>
+              </motion.div>
               {errors.name && (
                 <p className="text-sm text-red-700">{errors.name?.message}</p>
               )}
@@ -172,18 +209,20 @@ const Signup = () => {
                   {errors.password?.message}
                 </p>
               )}
-              <div>
+              <motion.div
+              variants={buttonVariants}
+              >
                 <Button
                   type="submit"
-                  className={`w-full py-2 px-4 rounded-md shadow transition duration-150 ${
+                  className={`w-full py-3 rounded-full text-white font-medium shadow-md transition-all duration-200 ${
                     theme === "dark"
-                      ? "bg-blue-600 text-white hover:bg-blue-500"
-                      : "bg-blue-600 text-white hover:bg-blue-700"
+                      ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
+                      : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600"
                   }`}
                 >
                   Sign Up
                 </Button>
-              </div>
+              </motion.div>
             </form>
             <p
               className={`text-center mt-4 ${
@@ -195,9 +234,9 @@ const Signup = () => {
                 Login here
               </Link>
             </p>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
       <Footer />
     </>
   );

@@ -11,7 +11,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { contactType } from "@/types/Types";
 import { useSelector } from "react-redux";
 import { UseContact } from "@/hooks/useContact";
-import {CircularProgress} from "@nextui-org/progress"
+import { CircularProgress } from "@nextui-org/progress";
+import {motion} from "framer-motion"
 
 interface themeState {
   theme: string;
@@ -38,22 +39,52 @@ const Contact = () => {
 
   const theme = useSelector((state: RootState) => state.theme.theme);
 
+
+
+  // Animation Variants
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } },
+};
+
+const inputVariants = {
+  rest: { scale: 1 },
+  hover: { scale: 1.05, transition: { type: "spring", stiffness: 300 } },
+};
+
+const buttonVariants = {
+  rest: { scale: 1 },
+  hover: { scale: 1.1, transition: { type: "spring", stiffness: 200 } },
+  tap: { scale: 0.95 },
+};
+
+const imageVariants = {
+  hover: { scale: 1.05, transition: { duration: 0.5 } },
+};
+
+
   return (
     <>
       <Header />
-      <div
-        className={`min-h-screen py-10 px-4 ${
+      <motion.div
+       initial="hidden"
+       animate="visible"
+       variants={containerVariants}
+        className={`min-h-screen py-16 px-4 ${
           theme === "dark" ? "bg-gray-900" : "bg-white"
         }`}
       >
         <div className={`max-w-5xl mx-auto rounded-lg p-8 `}>
-          <h2
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             className={`text-xl md:text-3xl font-bold mb-4 text-center ${
               theme === "dark" ? "text-white" : "text-gray-800"
             }`}
           >
             Contact Us
-          </h2>
+          </motion.h2>
           <p
             className={`text-center mb-8 ${
               theme === "dark" ? "text-gray-300" : "text-gray-600"
@@ -69,7 +100,13 @@ const Contact = () => {
               className="space-y-6 md:col-span-2"
               onSubmit={handleSubmit(onContactSubmit)}
             >
-              <div>
+              
+              <motion.div 
+              variants={inputVariants}
+              initial="rest"
+              whileHover="hover"
+              className="form-group"
+              >
                 <label
                   className={`block text-sm font-medium ${
                     theme === "dark" ? "text-gray-300" : "text-gray-700"
@@ -93,13 +130,16 @@ const Contact = () => {
                     theme === "dark" ? "bg-gray-700 text-white" : "bg-white"
                   }`}
                 />
-              </div>
+              </motion.div>
 
               {errors.name && (
                 <p className="text-sm text-red-700">{errors.name?.message}</p>
               )}
 
-              <div>
+              <motion.div  variants={inputVariants}
+        initial="rest"
+        whileHover="hover"
+        className="form-group">
                 <label
                   className={`block text-sm font-medium ${
                     theme === "dark" ? "text-gray-300" : "text-gray-700"
@@ -123,12 +163,17 @@ const Contact = () => {
                     theme === "dark" ? "bg-gray-700 text-white" : "bg-white"
                   }`}
                 />
-              </div>
+              </motion.div>
               {errors.email && (
                 <p className="text-sm text-red-700">{errors.email?.message}</p>
               )}
 
-              <div>
+              <motion.div
+               variants={inputVariants}
+               initial="rest"
+               whileHover="hover"
+               className="form-group"
+              >
                 <label
                   className={`block text-sm font-medium ${
                     theme === "dark" ? "text-gray-300" : "text-gray-700"
@@ -151,40 +196,51 @@ const Contact = () => {
                     theme === "dark" ? "bg-gray-700 text-white" : "bg-white"
                   }`}
                 />
-              </div>
+              </motion.div>
               {errors.message && (
                 <p className="text-sm text-red-700">
                   {errors.message?.message}
                 </p>
               )}
 
-              <div>
-                
-               
-              <Button
-  type="submit"
-  className={`w-full py-2 px-4 rounded-md shadow flex justify-center items-center ${
+              <motion.div
+               variants={buttonVariants}
+               initial="rest"
+               whileHover="hover"
+               whileTap="tap"
+               className="form-group"
+              >
+                <Button
+                  type="submit"
+                  aria-busy={contactMutataion?.isLoading}
+  aria-disabled={contactMutataion?.isLoading}
+  disabled={contactMutataion.isLoading}
+  className={`w-full py-3 rounded-full text-white font-medium shadow-md transition-all duration-200 ${
     theme === "dark"
-      ? "bg-blue-600 text-white hover:bg-blue-500"
-      : "bg-blue-500 text-white hover:bg-blue-700"
-  } focus:ring-blue-500 focus:ring-offset-2`}
-  disabled={contactMutataion.isLoading}  
->
-  {contactMutataion.isLoading ? (
-    <CircularProgress size="md" color="default" className="mr-2" />
-  ) : (
-    "Send Message"
-  )}
-</Button>
-
-                
-    
-               
-              </div>
+      ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
+      : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600"
+  }`}
+            
+                >
+                  {contactMutataion.isLoading ? (
+                    <CircularProgress
+                      size="md"
+                      color="default"
+                      className="mr-2"
+                    />
+                  ) : (
+                    "Send Message"
+                  )}
+                </Button>
+              </motion.div>
             </form>
 
             {/* Contact Information & Image */}
-            <div className="space-y-6">
+            <motion.div className="space-y-6"
+              
+              variants={imageVariants}
+              whileHover="hover"
+            >
               {/* Image */}
               <Image
                 src={dummyImage}
@@ -242,10 +298,10 @@ const Contact = () => {
                   +123 456 7890
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
       <Footer />
     </>
   );
