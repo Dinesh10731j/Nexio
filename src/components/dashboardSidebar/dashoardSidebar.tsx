@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react";
 import Link from "next/link";
-import { Home, Plus, User, Menu, X } from "lucide-react";
+import { Home, Plus, User, Menu, X,FileText} from "lucide-react";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,6 +41,11 @@ const Sidebar = () => {
           <Link href="/dashboard/profile" className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition">
             <User size={20} />
             {isOpen && <span>Profile</span>}
+          </Link>
+
+          <Link href="/dashboard/posts" className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition">
+            <FileText size={20} />
+            {isOpen && <span>Post</span>}
           </Link>
         </nav>
       </div>

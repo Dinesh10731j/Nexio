@@ -31,7 +31,7 @@ const Blog = () => {
         }`}
       >
         <h1
-          className={`text-3xl md:text-5xl font-bold text-center mb-12 ${
+          className={`text-xl md:text-3xl font-bold text-center mb-12 ${
             theme === "dark" ? "text-white" : "text-gray-800"
           }`}
         >
