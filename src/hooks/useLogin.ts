@@ -1,3 +1,4 @@
+
 import { useMutation } from "@tanstack/react-query";
 import { loginType } from "@/types/Types";
 import axiosInstance from "@/axiosInstance/axiosInstance";
@@ -6,11 +7,11 @@ import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 const { Login } = Endpoints;
 import { useRouter } from "next/navigation";
-
 const userLogin = async (logindata: loginType) => {
+
   try {
     const response = await axiosInstance.post(Login, logindata);
-
+    console.log('This is login data',response.data);
     return response.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -21,6 +22,7 @@ const userLogin = async (logindata: loginType) => {
 
 export const UseLogin = () => {
   const router = useRouter();
+
   return useMutation({
     mutationKey: ["userLogin"],
     mutationFn: userLogin,
@@ -28,8 +30,13 @@ export const UseLogin = () => {
       toast.success(data?.message);
 
       const token = data?.accessToken;
+      const username = data?.username;
+    
+
+    
 
       Cookies.set("token", token,{expires:1/24});
+      Cookies.set("username",username);
 
       setTimeout(() => {
         router.push("/dashboard");
