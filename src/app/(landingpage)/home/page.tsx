@@ -57,9 +57,7 @@ const Home = () => {
           height={400}
           className={`${imageData.data.stretched ? "w-full h-auto" : ""}`}
         />
-        {imageData.data.caption && (
-          <p className="text-center mt-2 text-sm text-gray-600">{imageData.data.caption}</p>
-        )}
+       
       </div>
     );
   };
@@ -127,7 +125,7 @@ const Home = () => {
 
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              {Array.from({ length: 6 }).map((_, idx) => (
+              {Array.from({ length:3 }).map((_, idx) => (
                 <SkeletonLoader key={idx} />
               ))}
             </div>
