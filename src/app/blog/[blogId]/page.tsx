@@ -9,22 +9,47 @@ import { Timer, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Key } from "react";
 
-interface themeState {
+// TypeScript Interfaces
+
+
+interface ImageBlockData {
+  file?: {
+    url: string;
+  };
+  caption?: string;
+}
+
+interface TextBlockData {
+  text: string;
+}
+
+interface ListBlockData {
+  items: string[];
+}
+
+
+
+
+
+
+interface ThemeState {
   theme: string;
 }
 
 interface RootState {
-  theme: themeState;
+  theme: ThemeState;
 }
 
-
-
 const SingleBlog = () => {
-  const params = useParams() as {blogId:string}
+  const params = useParams() as { blogId: string };
   const blogId = params.blogId;
-  const { data:blog, isLoading } = UseBlogById(blogId);
+  const { data: blogResponse, isLoading } = UseBlogById(blogId);
   const theme = useSelector((state: RootState) => state.theme.theme);
+
+  // Extract blog data from response
+  const blog = blogResponse;
 
   if (isLoading) {
     return (
@@ -42,7 +67,7 @@ const SingleBlog = () => {
     <>
       <Header />
       <div
-        className={` mx-auto px-4 py-20 ${
+        className={`mx-auto px-4 py-20 ${
           theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-800"
         }`}
       >
@@ -51,8 +76,11 @@ const SingleBlog = () => {
           {/* Image Section */}
           <div className="lg:w-2/3">
             <Image
-              src={blog?.image?.url || "/default-thumbnail.jpg"}
-              alt={blog?.image?.caption || "Blog Image"}
+              src={
+                blog?.blocks?.find((block: { type: string; }) => block.type === "image")?.data?.file?.url ||
+                "/default-thumbnail.jpg"
+              }
+              alt="Blog Image"
               width={1200}
               height={600}
               className="rounded-lg shadow-lg w-full object-cover"
@@ -61,7 +89,7 @@ const SingleBlog = () => {
 
           {/* Blog Info Section */}
           <div className="lg:w-1/3">
-            <h1 className="text-2xl md:text-4xl font-bold mb-4">{blog?.title}</h1>
+            <h1 className="text-2xl md:text-4xl font-bold mb-4">{blog?.blocks[0]?.data?.text || "Blog Title"}</h1>
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-gray-500 text-sm mb-4">
               <span className="flex items-center gap-2">
                 <UserCircle className="w-5 h-5" />
@@ -75,7 +103,6 @@ const SingleBlog = () => {
                 {blog?.readingTime || 5} min read
               </span>
             </div>
-
             <Button variant="default" className="mt-4">
               Share Article
             </Button>
@@ -85,7 +112,34 @@ const SingleBlog = () => {
         {/* Blog Content Section */}
         <div className="mt-10 lg:mt-12">
           <h2 className="text-2xl font-semibold mb-6">Overview</h2>
-          <p className="text-lg leading-relaxed">{blog?.content || "Blog content not available."}</p>
+          {blog?.blocks?.map((block: { type: unknown; id: Key | null | undefined; data: ImageBlockData | TextBlockData | ListBlockData; }) => {
+            switch (block.type) {
+              case "header":
+                return (
+                  <h3 key={block.id} className="text-2xl font-semibold mb-4">
+                    {(block.data as TextBlockData).text}
+                  </h3>
+                );
+              case "paragraph":
+                return (
+                  <p key={block.id} className="text-lg leading-relaxed mb-6">
+                    {(block.data as TextBlockData).text}
+                  </p>
+                );
+             
+              case "list":
+                const listData = block.data as ListBlockData;
+                return (
+                  <ul key={block.id} className="list-disc pl-6 mb-6">
+                    {listData.items.map((item, idx) => (
+                      <li key={idx} className="text-lg leading-relaxed">{item}</li>
+                    ))}
+                  </ul>
+                );
+              default:
+                return null;
+            }
+          })}
         </div>
 
         {/* Footer */}

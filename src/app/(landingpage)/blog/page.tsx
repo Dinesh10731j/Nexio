@@ -38,6 +38,7 @@ const Blog = () => {
           Our Latest Blogs
         </h1>
 
+        {/* Blog Grid */}
         <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
           {userBlogs?.data?.length === 0 ? (
             <p className="text-center col-span-full text-lg font-medium">
@@ -51,17 +52,19 @@ const Blog = () => {
                   theme === "dark" ? "bg-gray-800" : "bg-white"
                 } shadow-lg hover:shadow-xl`}
               >
+                {/* Blog Image */}
                 <div className="relative">
                   <Image
-                    src={blog?.image?.url}
-                    alt={blog?.title}
+                    src={blog?.image?.url || "/placeholder-image.jpg"} // Fallback image
+                    alt={blog?.title || "Blog image"}
                     className="w-full h-56 object-cover"
-                    width={200}
-                    height={200}
+                    width={400}
+                    height={250}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
                 </div>
 
+                {/* Blog Content */}
                 <div
                   className={`p-5 ${
                     theme === "dark" ? "text-gray-300" : "text-gray-800"
@@ -72,38 +75,44 @@ const Blog = () => {
                       theme === "dark" ? "text-white" : "text-gray-800"
                     }`}
                   >
-                    {blog.title}
+                    {blog.title || "Untitled Blog"}
                   </h2>
-                  
+
                   <div className="flex flex-wrap items-center justify-between text-sm mb-4">
-  {/* Reading time */}
-  <p
-    className={`flex items-center gap-1 text-green-700 ${
-      theme === "dark" ? "text-gray-400" : "text-gray-600"
-    }`}
-  >
-    <Timer size={16} /> {`${blog?.readingTime} min read`}
-  </p>
+                    {/* Reading Time */}
+                    <p
+                      className={`flex items-center gap-1 text-green-700 ${
+                        theme === "dark" ? "text-gray-400" : "text-gray-600"
+                      }`}
+                    >
+                      <Timer size={16} />
+                      {`${blog?.readingTime || "5"} min read`}
+                    </p>
 
-  {/* Author name */}
-  <div
-    className={`${
-      theme === "dark" ? "text-gray-400" : "text-gray-600"
-    }`}
-  >
-    By <strong>{blog?.author?.name}</strong>
-  </div>
+                    {/* Author Name */}
+                    <div
+                      className={`${
+                        theme === "dark" ? "text-gray-400" : "text-gray-600"
+                      }`}
+                    >
+                      By <strong>{blog?.author?.name || "Anonymous"}</strong>
+                    </div>
 
-  {/* Published date */}
-  <p
-    className={`${
-      theme === "dark" ? "text-gray-400" : "text-gray-600"
-    }`}
-  >
-    <strong>{new Date(blog?.publishedDate).toLocaleDateString()}</strong>
-  </p>
-</div>
+                    {/* Published Date */}
+                    <p
+                      className={`${
+                        theme === "dark" ? "text-gray-400" : "text-gray-600"
+                      }`}
+                    >
+                      <strong>
+                        {blog?.publishedDate
+                          ? new Date(blog.publishedDate).toLocaleDateString()
+                          : "Date not available"}
+                      </strong>
+                    </p>
+                  </div>
 
+                  {/* Caption / Short Content */}
                   <p
                     className={`text-sm mb-5 line-clamp-2 ${
                       theme === "dark" ? "text-gray-400" : "text-gray-600"
@@ -112,6 +121,7 @@ const Blog = () => {
                     {blog?.image?.caption || "No caption available"}
                   </p>
 
+                  {/* Read More Button */}
                   <Link href={`blog/${blog?._id}`}>
                     <Button
                       className={`w-full py-3 rounded-full text-white font-medium shadow-md transition-all duration-200 ${

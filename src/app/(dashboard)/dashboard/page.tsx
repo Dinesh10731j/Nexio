@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-
+import Cookies from 'js-cookie';
 const Dashboard = () => {
   const [greeting, setGreeting] = useState('');
-  const userName = "Dinesh Tamang"; 
+  const userName = Cookies.get("username")
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -23,12 +23,19 @@ const Dashboard = () => {
      
         <main className="flex-1 p-6 space-y-6 mt-20">
           {/* Welcome Section */}
-          <section className=" dark:bg-gray-800 p-6 rounded-lg text-center">
-            <h2 className=" text-xl md:text-3xl font-bold text-gray-800 dark:text-white">
-              {greeting},<span className='text-blue-500'>{userName}</span>
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">Welcome to  Dashboard.</p>
-          </section>
+
+          {
+            userName && (
+              <section className=" dark:bg-gray-800 p-6 rounded-lg text-center">
+              <h2 className=" text-xl md:text-3xl font-bold text-gray-800 dark:text-white">
+                {greeting},<span className='text-blue-500'>{userName}</span>
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300 mt-2">Welcome to  Dashboard.</p>
+            </section>
+
+            )
+          }
+        
 
           {/* Dashboard Stats Section */}
           <section className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
