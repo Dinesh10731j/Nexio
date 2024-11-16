@@ -2,12 +2,12 @@
 import { Sun, Moon, User } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-import dummyImage from "../../assets/Image.png";
 import Nexio from "../../assets/Nexio_Logo.png"
 import { Button } from '../ui/button';
+import Cookies from 'js-cookie';
 const DashboardHeader = () => {
     const [darkMode, setDarkMode] = useState(false);
-    
+    const username = Cookies.get("username");
     const toggleTheme = () => {
         setDarkMode(!darkMode);
         document.documentElement.classList.toggle('dark', !darkMode);
@@ -25,14 +25,24 @@ const DashboardHeader = () => {
                 >
                     {darkMode ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
                 </Button>
-                <div className="flex items-center gap-2">
-                    <span className="text-gray-800 dark:text-gray-300">User Name</span>
-                    <Image
-                        src={dummyImage}
-                        alt="User Profile"
-                        className="w-8 h-8 rounded-full"
-                    />
-                    <User className="w-5 h-5 text-gray-800 dark:text-gray-300" aria-label="User Profile Icon" />
+                <div className="flex items-center gap-2"> 
+                    {
+                        username && (
+                            <div className='flex gap-2'>
+                                  <User className="w-5 h-5 text-gray-800 dark:text-gray-300" aria-label="User Profile Icon" />
+
+<span className="text-gray-800 dark:text-gray-300">{username}</span>
+                   
+                 
+
+                            </div>
+                           
+
+                        )
+
+
+                    }
+                 
                 </div>
             </div>
         </header>

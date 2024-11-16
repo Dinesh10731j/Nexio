@@ -1,16 +1,15 @@
 "use client";
 import React, { useRef } from "react";
 import Image from "next/image";
-import frontImg from "../../../assets/Image.png";
+import frontImg from "../../../assets/Image.png"; // Ensure the path is correct
 import Footer from "@/components/footer";
 import { useSelector } from "react-redux";
 import { UseAllBlogs } from "@/hooks/useBlogs";
-import { Blogs } from "@/types/Types";
 import Link from "next/link";
 import { Timer } from "lucide-react";
 import { motion, useInView } from "framer-motion";
-import { Skeleton } from "@/components/ui/skeleton"; 
-import { Button } from "@/components/ui/button"; 
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 interface themeState {
   theme: string;
@@ -25,8 +24,8 @@ const Home = () => {
   const { data: allBlogs, isLoading } = UseAllBlogs();
 
   // Refs for animations
-  const heroRef = useRef(null);
-  const contentRef = useRef(null);
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   // Visibility check
   const isHeroInView = useInView(heroRef, { once: true });
@@ -43,12 +42,32 @@ const Home = () => {
     </div>
   );
 
+  // Function to render the image with properties
+  const renderImage = (imageData: ImageData) => {
+    return (
+      <div
+        className={`relative ${imageData.data.withBackground ? "bg-gray-100" : ""} ${
+          imageData.data.withBorder ? "border-2 border-gray-300" : ""
+        }`}
+      >
+        <Image
+          src={imageData.data.file.url}
+          alt={imageData.data.file.url}
+          width={600}
+          height={400}
+          className={`${imageData.data.stretched ? "w-full h-auto" : ""}`}
+        />
+        {imageData.data.caption && (
+          <p className="text-center mt-2 text-sm text-gray-600">{imageData.data.caption}</p>
+        )}
+      </div>
+    );
+  };
+
   return (
     <>
       <motion.div
-        className={`min-h-screen ${
-          theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
-        }`}
+        className={`min-h-screen ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"}`}
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, type: "spring" }}
@@ -89,7 +108,9 @@ const Home = () => {
             >
               Discover the latest trends and in-depth insights into the world of technology.
             </motion.p>
-            <Button variant="default" className="text-white bg-blue-400 rounded-lg">Explore Now</Button>
+            <Button variant="default" className="text-white bg-blue-400 rounded-lg">
+              Explore Now
+            </Button>
           </div>
         </div>
 
@@ -117,58 +138,98 @@ const Home = () => {
               animate={{ opacity: isContentInView ? 1 : 0 }}
               transition={{ delay: 0.3, duration: 1 }}
             >
-              {allBlogs?.slice(0,3)?.map((blog: Blogs) => (
-                <motion.div
-                  key={blog._id}
-                  className={`p-7 rounded-xl shadow-xl ${
-                    theme === "dark" ? "bg-gray-800" : "bg-white"
-                  } hover:scale-105 transform transition-all duration-300`}
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: isContentInView ? 0 : 50, opacity: isContentInView ? 1 : 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  <Image
-                    src={blog.image?.url || frontImg}
-                    alt={blog.image?.caption || "Article Image"}
-                    height={200}
-                    width={400}
-                    className="rounded-lg mb-4"
-                  />
-                  <h3 className="text-2xl font-semibold mb-2 truncate">{blog.title}</h3>
-                  <div className="text-gray-500 text-sm mb-3 flex gap-2">
-                    By <strong>{blog.author?.name}</strong> |{" "}
-                    {new Date(blog.publishedDate).toLocaleDateString()} |{" "}
-                    <span className="flex items-center gap-1 text-green-700">
-                      <Timer size={16} /> {blog.readingTime} min read
-                    </span>
-                  </div>
-                  <p className="mb-4 text-gray-600 truncate">
-                    {blog.content}
-                  </p>
+              {allBlogs?.slice(0, 3)?.map((blog: Blogs) => {
+                const headerBlock = blog?.blocks?.find(
+                  (block: { type: string }) => block.type === "header"
+                );
+                const paragraphBlock = blog?.blocks?.find(
+                  (block: { type: string }) => block.type === "paragraph"
+                );
+                const imageBlock = blog?.blocks?.find(
+                  (block: { type: string }) => block.type === "image"
+                );
 
-                  <Link href={`blog/${blog?._id}`}>
-                  <Button
-                      className={`w-full py-3 rounded-full text-white font-medium shadow-md transition-all duration-200 ${
-                        theme === "dark"
-                          ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
-                          : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600"
-                      }`}
-                    >
-                      Read More
-                    </Button>
-                  </Link>
-                 
-                </motion.div>
-              ))}
+                return (
+                  <motion.div
+                    key={blog._id}
+                    className={`p-7 rounded-xl shadow-xl ${theme === "dark" ? "bg-gray-800" : "bg-white"} hover:scale-105 transform transition-all duration-300`}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: isContentInView ? 0 : 50, opacity: isContentInView ? 1 : 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    {imageBlock && renderImage(imageBlock)} {/* Call to render image block */}
+                    {headerBlock && (
+                      <h1 className={`text-${headerBlock?.data?.level * 2}xl font-bold mb-4`}>
+                        {headerBlock.data.text}
+                      </h1>
+                    )}
+                    {paragraphBlock && (
+                      <p className="mb-4 text-gray-600">
+                        {paragraphBlock.data.text.length > 100
+                          ? `${paragraphBlock.data.text.slice(0, 100)}...`
+                          : paragraphBlock.data.text}
+                      </p>
+                    )}
+
+                    <div className="text-gray-500 text-sm mb-3 flex gap-2">
+                      By <strong>{blog.author?.name}</strong> |{" "}
+                      {new Date(blog.publishedDate).toLocaleDateString()} |{" "}
+                      <span className="flex items-center gap-1 text-green-700">
+                        <Timer size={16} /> {blog.readingTime} min read
+                      </span>
+                    </div>
+
+                    <Link href={`blog/${blog?._id}`}>
+                      <Button
+                        className={`w-full py-3 rounded-full text-white font-medium shadow-md transition-all duration-200 ${
+                          theme === "dark"
+                            ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
+                            : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600"
+                        }`}
+                      >
+                        Read More
+                      </Button>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           )}
         </section>
       </motion.div>
-    
-        <Footer />
-      
+
+      <Footer />
     </>
   );
 };
 
 export default Home;
+
+// Interfaces for Types
+
+export interface ImageData {
+  type: string;
+  data: {
+    file: {
+      url: string;
+    };
+    caption?: string;
+    withBackground?: boolean;
+    withBorder?: boolean;
+    stretched?: boolean;
+  };
+}
+
+export interface Blogs {
+  _id: string;
+  author: { name: string };
+  publishedDate: string;
+  blocks: Block[];
+  readingTime: number;
+}
+
+export interface Block {
+  type: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data:any; 
+}

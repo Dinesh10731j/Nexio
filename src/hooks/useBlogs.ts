@@ -8,7 +8,7 @@ const allBlogs  = async () => {
   
   try {
     const response = await axiosInstance.get(Blogs);
-    console.log()
+  
 
     return response.data.Blogs;
   } catch (error: unknown) {

@@ -19,30 +19,61 @@ export interface loginType{
 }
 
 
-export interface BlogsResponse {
-    blogs: Blogs[];
-  }
-  
-  export interface Blogs {
-    readingTime:string;
-    publishedDate: string;
-    name:string,
-    author:{
-name:string,
+// Interface for Image Data
+export interface ImageData {
+  type: string;
+  data: {
+    file: {
+      url: string;
     };
-    image: Image;
-    _id: string;
-    title: string;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-  }
-  
-  export interface Image {
-    url: string;
-    caption: string;
-  }
-  
+    caption?: string;
+    withBackground?: boolean;
+    withBorder?: boolean;
+    stretched?: boolean;
+  };
+}
 
+// Interface for Block Data
+export interface Block {
+  id: string;
+  type: string;
+  data: {
+    text?: string;
+    level?: number;
+    items?: string[];
+    file?: {
+      url: string;
+    };
+    caption?: string;
+    withBorder?: boolean;
+    withBackground?: boolean;
+    stretched?: boolean;
+  };
+}
 
+// Interface for Author
+export interface Author {
+  name: string;
+}
+
+// Interface for Image
+export interface Image {
+  caption: string;
+  url: string;
+  alt?: string;
+}
+
+// Interface for Blog
+export interface Blogs {
+  _id: string;
+  title: string;
+  content: string;
+  blocks: Block[];
+  readingTime: string;
+  publishedDate: string;
+  author: Author;
+  image: Image;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
