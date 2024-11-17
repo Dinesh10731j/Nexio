@@ -12,7 +12,7 @@ const createBlogMutation = UseCreateBlog();
     if (editorRef.current) {
       try {
         const savedData = await editorRef.current.save();
-        console.log('This is saved data',savedData)
+     
      createBlogMutation.mutate(savedData);
       } catch (error) {
         console.error('Saving failed: ', error);

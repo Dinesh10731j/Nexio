@@ -59,7 +59,9 @@ const About = () => {
             variants={fadeInUp}
             className={`text-2xl md:text-4xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
           >
-            About <span className='text-blue-500'>Nexio</span>
+            About <span   className={`col-span-full text-center ${theme === "dark" 
+              ? "bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text hover:from-blue-500 hover:to-purple-500" 
+              : "bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text hover:from-blue-600 hover:to-teal-600"}`}>Nexio</span>
           </motion.h1>
           <motion.p
             variants={fadeInUp}

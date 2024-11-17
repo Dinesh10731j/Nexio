@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import Image from "next/image";
-import frontImg from "../../../assets/Image.png"; // Ensure the path is correct
+import frontImg from "../../../assets/Image.png";
 import Footer from "@/components/footer";
 import { useSelector } from "react-redux";
 import { UseAllBlogs } from "@/hooks/useBlogs";
@@ -10,6 +10,8 @@ import { Timer } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import Cookies from "js-cookie";
+import { User } from "lucide-react";
 
 interface themeState {
   theme: string;
@@ -22,6 +24,8 @@ interface RootState {
 const Home = () => {
   const theme = useSelector((state: RootState) => state.theme.theme);
   const { data: allBlogs, isLoading } = UseAllBlogs();
+
+  const username = Cookies.get('username');
 
   // Refs for animations
   const heroRef = useRef<HTMLDivElement | null>(null);
@@ -90,14 +94,34 @@ const Home = () => {
             />
           </motion.div>
           <div className="relative z-10 text-center px-6">
-            <motion.h1
-              className="text-4xl md:text-5xl font-extrabold mb-4 text-white"
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: isHeroInView ? 0 : -50, opacity: isHeroInView ? 1 : 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              Welcome to <span className="text-blue-500">Nexio</span>
-            </motion.h1>
+          <motion.h1
+  className="text-4xl md:text-5xl font-extrabold mb-4 text-white"
+  initial={{ y: -50, opacity: 0 }}
+  animate={{ y: isHeroInView ? 0 : -50, opacity: isHeroInView ? 1 : 0 }}
+  transition={{ duration: 0.8, ease: "easeOut" }}
+>
+  Welcome to{" "}
+  <span
+    className={`col-span-full text-center ${
+      theme === "dark"
+        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text hover:from-blue-500 hover:to-purple-500"
+        : "bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text hover:from-blue-600 hover:to-teal-600"
+    }`}
+  >
+    Nexio
+  </span>
+  {username && (
+    <span
+      className="ml-3 inline-flex items-center  cursor-pointer hover:scale-105 transition-all duration-200 ease-in-out"
+    >
+     
+      <h2 className="text-white text-4xl md:text-5xl  font-semibold">
+        ,{username}
+      </h2>
+    </span>
+  )}
+</motion.h1>
+
             <motion.p
               className="text-lg md:text-xl text-gray-200 mb-8"
               initial={{ y: 50, opacity: 0 }}
@@ -106,7 +130,11 @@ const Home = () => {
             >
               Discover the latest trends and in-depth insights into the world of technology.
             </motion.p>
-            <Button variant="default" className="text-white bg-blue-400 rounded-lg">
+            <Button variant="default" className={`text-white bg-blue-400 rounded-lg ${
+                          theme === "dark"
+                            ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
+                            : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600"
+                        }`}>
               Explore Now
             </Button>
           </div>
@@ -170,7 +198,7 @@ const Home = () => {
                     )}
 
                     <div className="text-gray-500 text-sm mb-3 flex gap-2">
-                      By <strong>{blog.author?.name}</strong> |{" "}
+                      By <User size={20}/><strong>{blog.author?.name}</strong> |{" "}
                       {new Date(blog.publishedDate).toLocaleDateString()} |{" "}
                       <span className="flex items-center gap-1 text-green-700">
                         <Timer size={16} /> {blog.readingTime} min read
