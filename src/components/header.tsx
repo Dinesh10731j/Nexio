@@ -1,9 +1,9 @@
-"use client"; // Ensure this component only runs on the client-side
+"use client"; 
 
 import React, { useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import Link from "next/link";
-import { Menu, Moon, Sun, User, XIcon } from "lucide-react";
+import { Menu, Moon, Sun,XIcon } from "lucide-react";
 import Nexio_Logo from "../assets/Nexio_Logo.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "@/redux/slices/themeSlice";
 import { Button } from "./ui/button";
 import { motion, useAnimation } from "framer-motion";
-import Cookies from "js-cookie";
+
 
 interface ThemeState {
   theme: string;
@@ -29,7 +29,7 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.theme.theme);
-  const username = Cookies.get("username");
+
 
   const controls = useAnimation();
 
@@ -94,7 +94,7 @@ const Header = () => {
         theme === "dark" ? "dark:bg-gray-900" : "bg-white"
       } ${isScrolled ? "backdrop-blur-md" : ""}`}
     >
-      <div className="container mx-auto flex justify-evenly gap-2 md:gap-7 items-center p-4">
+      <div className="container mx-auto flex justify-evenly gap-1 md:gap-7 items-center p-4">
         <Image
           src={Nexio_Logo}
           alt="nexio_logo"
@@ -102,7 +102,9 @@ const Header = () => {
           width={30}
           className={theme === "dark" ? "filter invert" : ""}
         />
-        <div className="text-xl font-bold text-blue-500">Nexio</div>
+        <div   className={`text-2xl hidden md:block col-span-full text-center ${theme === "dark" 
+              ? "bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text hover:from-blue-500 hover:to-purple-500" 
+              : "bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text hover:from-blue-600 hover:to-teal-600"}`}>Nexio</div>
 
         <nav className="hidden md:flex gap-7 space-x-6 items-center">
           <Link
@@ -164,12 +166,7 @@ const Header = () => {
           )}
         </Button>
 
-        {username && (
-          <div className="flex gap-3 md:py-2 md:px-3 items-center rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 shadow-md cursor-pointer hover:scale-105 transition-all duration-200 ease-in-out">
-            <User size={20} color="white" />
-            <h1 className="text-white text-sm sm:text-base md:text-lg lg:text-xl font-semibold">{username}</h1>
-          </div>
-        )}
+       
 
         <div className="md:hidden">
           <Menu

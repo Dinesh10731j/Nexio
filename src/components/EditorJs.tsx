@@ -8,6 +8,15 @@ import Paragraph from "@editorjs/paragraph";
 import Header from "@editorjs/header";
 import Table from "@editorjs/table";
 import { UseUploadToCloudinary } from "@/hooks/useUploadImageToCloudinary";
+import { useSelector} from "react-redux";
+interface themeState {
+  theme: string;
+}
+
+interface RootState {
+  theme: themeState;
+}
+
 
 interface EditorjsProps {
   onInit: (editor: EditorJS) => void;
@@ -15,6 +24,8 @@ interface EditorjsProps {
 
 const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
   const editorInstanceRef = useRef<EditorJS | null>(null);
+
+  const theme = useSelector((theme:RootState)=>theme.theme.theme)
 
   useEffect(() => {
     if (editorInstanceRef.current) { 
@@ -81,7 +92,7 @@ const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
               file: {
                 url: "", 
               },
-              caption: "Write a description",
+              
               withBorder: true,
               stretched: true,
               withBackground: true,
@@ -108,7 +119,7 @@ const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
     };
   }, [onInit]);
 
-  return <div id="editorjs"></div>;
+  return <div id="editorjs" className={theme === 'dark'?'text-white':''}></div>;
 };
 
 export default Editorjs;
