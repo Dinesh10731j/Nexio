@@ -6,6 +6,7 @@ const UserPosts = async ()=>{
     try{
 
         const response = await axiosInstance.get(userblogs);
+        
         return response.data;
     }catch(error:unknown){
 
