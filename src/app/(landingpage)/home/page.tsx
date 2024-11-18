@@ -11,7 +11,7 @@ import { motion, useInView } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
-import { User } from "lucide-react";
+
 
 interface themeState {
   theme: string;
@@ -198,7 +198,7 @@ const Home = () => {
                     )}
 
                     <div className="text-gray-500 text-sm mb-3 flex gap-2">
-                      By <User size={20}/><strong>{blog.author?.name}</strong> |{" "}
+                      By <strong>{blog.author?.name}</strong> |{" "}
                       {new Date(blog.publishedDate).toLocaleDateString()} |{" "}
                       <span className="flex items-center gap-1 text-green-700">
                         <Timer size={16} /> {blog.readingTime} min read

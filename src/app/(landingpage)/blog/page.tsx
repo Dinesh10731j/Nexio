@@ -49,7 +49,7 @@ const Blog = () => {
         <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
           {isLoading ? (
             <div
-            className={`col-span-full text-center ${theme === "dark" 
+            className={`col-span-full text-center animate-bounce ${theme === "dark" 
               ? "bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text hover:from-blue-500 hover:to-purple-500" 
               : "bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text hover:from-blue-600 hover:to-teal-600"}`}
           >
