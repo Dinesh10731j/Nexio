@@ -119,7 +119,14 @@ const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
     };
   }, [onInit]);
 
-  return <div id="editorjs" className={`flex items-center justify-center w-full py-4  ${theme === 'dark'?'text-white':'text-black'}`}></div>;
+  return  <div
+  id="editorjs"
+  className={`w-[300px] md:w-full h-full  rounded-md  ${
+    theme === "dark" ? "text-white" : "text-black"
+  }`}
+  
+>
+</div>
 };
 
 export default Editorjs;

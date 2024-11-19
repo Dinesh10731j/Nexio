@@ -3,25 +3,36 @@
 import { useState, ReactNode } from "react";
 import Link from "next/link";
 import { Home, Plus, User, Menu, X, FileText } from "lucide-react";
+import { useSelector} from "react-redux";
 
 interface SidebarProps {
   children: ReactNode;
 }
 
+interface ThemeState {
+  theme: string;
+}
+
+interface RootState {
+  theme: ThemeState;
+}
+
+
 const Sidebar = ({ children }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const theme  = useSelector((state:RootState)=>state.theme.theme)
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className="flex overflow-hidden">
-      {/* Sidebar */}
+ 
+     <div className="flex ">
       <div
         className={`${
           isOpen ? "w-60" : "w-20"
-        } bg-gray-800 text-gray-100  h-screen lg:min-h-screen transition-width duration-300 fixed lg:relative`}
+        } bg-gray-800 text-gray-100   h-screen lg:min-h-screen transition-width duration-300 fixed lg:relative`}
       >
         {/* Logo and Toggle */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
@@ -68,13 +79,14 @@ const Sidebar = ({ children }: SidebarProps) => {
 
       {/* Main content area */}
       <div
-        className={`flex ${isOpen ? "ml-3" : "ml-7"} py-20 h-screen w-screen items-center justify-center  transition-all duration-300 lg:ml-3`}
+        className={`flex  ${theme === 'dark'?"bg-gray-900" : "bg-gray-100"} min-h-screen w-full items-center justify-center  transition-all duration-300 lg:ml-3`}
       >
        
 
         {children}
       </div>
-    </div>
+      </div>
+   
   );
 };
 
