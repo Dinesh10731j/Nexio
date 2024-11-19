@@ -30,7 +30,7 @@ export const UseLogin = () => {
       const username = data?.username;
 
       Cookies.set("token", token, { expires: 1 / 24 });
-      Cookies.set("username", username);
+      Cookies.set("username", username, { expires: 1 / 24 });
 
       setTimeout(() => {
         router.push("/dashboard");
