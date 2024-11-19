@@ -19,7 +19,7 @@ const Dashboard = () => {
   return (
     <>
   
-      <div className=" flex items-center justify-center w-screen min-h-screen dark:bg-gray-900">
+      <div className="mt-32 md:mt-0  dark:bg-gray-900">
      
         <main className="flex-1 p-6 space-y-6 mt-20">
           {/* Welcome Section */}
