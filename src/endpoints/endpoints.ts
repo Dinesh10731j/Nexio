@@ -6,4 +6,5 @@ export const Endpoints = {
     Blogs:'/api/blogs',
     singleblog:'/api',
     userblogs:'/api/blog/user-blogs',
+    deletepost:'/api/delete-post',
 }

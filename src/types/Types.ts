@@ -77,3 +77,10 @@ export interface Blogs {
   updatedAt: string;
   __v: number;
 }
+
+
+
+
+export interface postIdType{
+  postId:string
+}
