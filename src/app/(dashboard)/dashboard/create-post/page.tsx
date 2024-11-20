@@ -36,7 +36,7 @@ const createBlogMutation = UseCreateBlog();
     <>
    
    
-   <main className="flex flex-col items-center w-full max-w-[600px] mx-auto p-4 sm:p-6 lg:p-8">
+   <main className="flex ml-16 md:ml-0 md:m flex-col items-center justify-center  md:w-full w-[400px] mx-auto p-4 sm:p-6 lg:p-8">
       <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white text-center">
         Create a New Post
       </h2>
@@ -45,7 +45,7 @@ const createBlogMutation = UseCreateBlog();
       
       <Button
         onClick={handlePublish}
-        className={`mt-6 w-full py-3 rounded-full text-white font-medium shadow-md transition-all duration-200 ${
+        className={`mt-6 md:w-full w-auto py-3 rounded-full text-white font-medium shadow-md transition-all duration-200 ${
           theme === "dark"
             ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
             : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600"

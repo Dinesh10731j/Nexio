@@ -21,10 +21,10 @@ const Profile = () => {
   };
 
   return (
-    <div className="px-4 py-10">
+    <div className="px-4 py-10 ml-16 md:ml-0">
       <div className="w-full max-w-lg bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
         {/* Header */}
-        <div className="flex flex-col items-center px-14 md:p-28 bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
+        <div className="flex flex-col items-center px-16 md:px-26 py-16 md:py-4 md:p-28 bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
           <h2 className="text-2xl md:text-3xl font-semibold mb-2">John Doe</h2>
           <p className="text-sm md:text-base">Web Developer & Designer</p>
         </div>
@@ -71,7 +71,7 @@ const Profile = () => {
             <select
               value={status}
               onChange={handleStatusChange}
-              className="p-3 border rounded-lg w-full bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none transition"
+              className="p-3 cursor-pointer border rounded-lg w-full bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none transition"
             >
               <option disabled>Select Mood</option>
               <option value="Creative">Creative</option>
