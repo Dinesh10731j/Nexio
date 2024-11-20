@@ -19,9 +19,9 @@ const Dashboard = () => {
   return (
     <>
   
-      <div className="mt-32 md:mt-0  dark:bg-gray-900">
+      <div className=" ml-16 md:ml-0 md:mt-0  dark:bg-gray-900">
      
-        <main className="flex-1 p-6 space-y-6 mt-20">
+        <main className="flex-1 p-6 space-y-6 ">
           {/* Welcome Section */}
 
           {

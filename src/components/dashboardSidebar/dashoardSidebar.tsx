@@ -32,7 +32,7 @@ const Sidebar = ({ children }: SidebarProps) => {
       <div
         className={`${
           isOpen ? "w-60" : "w-20"
-        } bg-gray-800 text-gray-100   h-screen lg:min-h-screen transition-width duration-300 fixed lg:relative`}
+        } bg-gray-800 text-gray-100  min-h-screen lg:min-h-screen transition-width duration-300 fixed lg:relative`}
       >
         {/* Logo and Toggle */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
