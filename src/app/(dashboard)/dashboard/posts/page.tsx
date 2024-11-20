@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Timer, Trash2 } from "lucide-react";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
+import { UseDeletePost } from "@/hooks/useDeletePost";
 
 interface ImageData {
   type: string;
@@ -67,12 +68,14 @@ const renderImage = (imageData: ImageData) => (
 
 const Posts = () => {
   const { data: userPosts, isLoading } = UseUserPosts();
+
+  const post = UseDeletePost();
   const username = Cookies.get("username");
   const theme = useSelector((state: RootState) => state.theme.theme);
 
-  // Handle post deletion
+  // Handling post deletion
   const handleDeletePost = (postId: string) => {
-    console.log("Delete post with ID:", postId);
+    post.mutate(postId);
   };
 
   return isLoading ? (
