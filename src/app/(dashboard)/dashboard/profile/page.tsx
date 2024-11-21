@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import { Camera, Edit } from "lucide-react";
 import dummyImage from "../../../../assets/Image.png";
 import Image from "next/image";
-
+import { UseUploadToCloudinary } from "@/hooks/useUploadImageToCloudinary";
+import { UseUploadProfileImage } from "@/hooks/useUploadProfileImage";
 const Profile = () => {
   const [status, setStatus] = useState("Select Mood");
+  const [imageUrl,setImageUrl] = useState('');
+  const uploadProfileImageMutation =UseUploadProfileImage();
 
   const handleStatusChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -13,12 +16,24 @@ const Profile = () => {
     setStatus(event.target.value);
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      const imageURL = URL.createObjectURL(event.target.files[0]);
-      console.log(imageURL);
+  const file = event.target.files[0]
+
+
+  const uploadUrl = await UseUploadToCloudinary(file);
+
+  setImageUrl(uploadUrl);
+
+
+
     }
   };
+
+
+  const handleProfileChange = ()=>{
+   uploadProfileImageMutation.mutate(imageUrl)
+  }
 
   return (
     <div className="px-4 py-10 ml-16 md:ml-0">
@@ -59,7 +74,7 @@ const Profile = () => {
         {/* Body */}
         <div className="p-6">
           {/* Change Profile Button */}
-          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 mb-4">
+          <button  onClick={()=>handleProfileChange()} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 mb-4">
             Change Profile
           </button>
 
