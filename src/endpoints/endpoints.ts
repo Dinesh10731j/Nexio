@@ -8,4 +8,5 @@ export const Endpoints = {
     userblogs:'/api/blog/user-blogs',
     deletepost:'/api/delete-post',
     uploadprofileimage:'/api/user/profile/image',
+    getprofileimage:'/api/user/profile/image',
 }
