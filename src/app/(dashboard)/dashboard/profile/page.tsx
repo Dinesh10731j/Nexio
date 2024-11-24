@@ -5,10 +5,14 @@ import dummyImage from "../../../../assets/Image.png";
 import Image from "next/image";
 import { UseUploadToCloudinary } from "@/hooks/useUploadImageToCloudinary";
 import { UseUploadProfileImage } from "@/hooks/useUploadProfileImage";
+import { UseGetProfileImage } from "@/hooks/usegetProfileImage";
 const Profile = () => {
   const [status, setStatus] = useState("Select Mood");
   const [imageUrl,setImageUrl] = useState('');
   const uploadProfileImageMutation =UseUploadProfileImage();
+  const profileImage =  UseGetProfileImage();
+
+  console.log('This is the response of userprofiledata',profileImage?.data);
 
   const handleStatusChange = (event: {
     target: { value: React.SetStateAction<string> };
