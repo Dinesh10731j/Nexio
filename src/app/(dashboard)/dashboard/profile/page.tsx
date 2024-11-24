@@ -8,11 +8,9 @@ import { UseUploadProfileImage } from "@/hooks/useUploadProfileImage";
 import { UseGetProfileImage } from "@/hooks/usegetProfileImage";
 const Profile = () => {
   const [status, setStatus] = useState("Select Mood");
-  const [imageUrl,setImageUrl] = useState('');
-  const uploadProfileImageMutation =UseUploadProfileImage();
-  const profileImage =  UseGetProfileImage();
-
-  console.log('This is the response of userprofiledata',profileImage?.data);
+  const [imageUrl, setImageUrl] = useState("");
+  const uploadProfileImageMutation = UseUploadProfileImage();
+  const profileImage = UseGetProfileImage();
 
   const handleStatusChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -20,24 +18,21 @@ const Profile = () => {
     setStatus(event.target.value);
   };
 
-  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (event.target.files && event.target.files[0]) {
-  const file = event.target.files[0]
+      const file = event.target.files[0];
 
+      const uploadUrl = await UseUploadToCloudinary(file);
 
-  const uploadUrl = await UseUploadToCloudinary(file);
-
-  setImageUrl(uploadUrl);
-
-
-
+      setImageUrl(uploadUrl);
     }
   };
 
-
-  const handleProfileChange = ()=>{
-   uploadProfileImageMutation.mutate(imageUrl)
-  }
+  const handleProfileChange = () => {
+    uploadProfileImageMutation.mutate(imageUrl);
+  };
 
   return (
     <div className="px-4 py-10 ml-16 md:ml-0">
@@ -51,11 +46,22 @@ const Profile = () => {
         {/* Profile Image */}
         <div className="flex justify-center -mt-14">
           <div className="relative">
-            <Image
-              src={dummyImage}
-              alt="Profile"
-              className="w-36 h-36 md:w-40 md:h-40 rounded-full object-cover border-4 border-white shadow-md"
-            />
+            {profileImage.data?.profile?.profileUrl ? (
+              <Image
+                src={profileImage.data?.profile?.profileUrl}
+                alt="Profile"
+                className="w-36 h-36 md:w-40 md:h-40 rounded-full object-cover border-4 border-white shadow-md"
+                width={36}
+                height={36}
+              />
+            ) : (
+              <Image
+                src={dummyImage}
+                alt="Profile"
+                className="w-36 h-36 md:w-40 md:h-40 rounded-full object-cover border-4 border-white shadow-md"
+              />
+            )}
+
             <label
               htmlFor="profile-upload"
               className="absolute bottom-2 right-2 bg-white p-2 rounded-full shadow cursor-pointer hover:bg-gray-200 transition"
@@ -78,7 +84,10 @@ const Profile = () => {
         {/* Body */}
         <div className="p-6">
           {/* Change Profile Button */}
-          <button  onClick={()=>handleProfileChange()} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 mb-4">
+          <button
+            onClick={() => handleProfileChange()}
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 mb-4"
+          >
             Change Profile
           </button>
 
