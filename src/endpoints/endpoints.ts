@@ -9,4 +9,5 @@ export const Endpoints = {
     deletepost:'/api/delete-post',
     uploadprofileimage:'/api/user/profile/image',
     getprofileimage:'/api/user/profile/image',
+    countViews:"/api/blog/views"
 }

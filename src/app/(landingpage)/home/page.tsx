@@ -130,12 +130,16 @@ const Home = () => {
             >
               Discover the latest trends and in-depth insights into the world of technology.
             </motion.p>
-            <Button variant="default" className={`text-white bg-blue-400 rounded-lg ${
+            <Button variant="default" className={`text-white hover:rounded-md bg-blue-400 rounded-lg ${
                           theme === "dark"
                             ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
                             : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600"
                         }`}>
-              Explore Now
+                          <Link href={'/blog'}>
+                          Explore Now
+                          
+                          </Link>
+             
             </Button>
           </div>
         </div>
