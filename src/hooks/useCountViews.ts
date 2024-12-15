@@ -1,11 +1,11 @@
 import axiosInstance from "@/axiosInstance/axiosInstance";
 import { Endpoints } from "@/endpoints/endpoints";
 import { useQuery } from "@tanstack/react-query";
-const {singleblog} = Endpoints
+const {countViews} = Endpoints
 const useviewcount= async ({ params }: {params:{blogId:string} })=>{
     try{
-        const response = await axiosInstance.get(`${singleblog}/${params.blogId}`);
-        return response.data.blog;
+        const response = await axiosInstance.get(`${countViews}/${params.blogId}`);
+        return response.data.blogs;
 
     }catch(error:unknown){
         if(error instanceof Error){
@@ -15,9 +15,9 @@ const useviewcount= async ({ params }: {params:{blogId:string} })=>{
 }
 
 
-export const UseCountView = (blogId: string )=>{
+export const UseCountViews = (blogId: string )=>{
     return useQuery({
-        queryKey:['views'],
+        queryKey:['views',blogId],
         queryFn:()=>useviewcount({ params: {blogId} })
     })
 }

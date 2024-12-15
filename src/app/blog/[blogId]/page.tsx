@@ -2,11 +2,11 @@
 
 import { useParams } from "next/navigation";
 import { UseBlogById } from "@/hooks/useSingleBlog";
-import { UseCountView } from "@/hooks/useCountViews";
+import { UseCountViews } from "@/hooks/useCountViews";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Image from "next/image";
-import { Timer, UserCircle,EyeIcon } from "lucide-react";
+import { Timer, UserCircle,EyeIcon} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -38,12 +38,10 @@ interface RootState {
 
 const SingleBlog = () => {
   const params = useParams() as { blogId: string };
-
-
-
   const blogId = params.blogId;
   const { data: blogResponse, isLoading } = UseBlogById(blogId);
-  const {data:Views} = UseCountView(blogId);
+  const {data:Views} = UseCountViews(blogId);
+  console.log("This is response",Views);
   const theme = useSelector((state: RootState) => state.theme.theme);
 
   // Extract blog data from response

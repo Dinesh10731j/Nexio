@@ -5,6 +5,7 @@ const {singleblog} = Endpoints
 const singleBlog = async ({ params }: {params:{blogId:string} })=>{
     try{
         const response = await axiosInstance.get(`${singleblog}/${params.blogId}`);
+     
         return response.data.blog;
 
     }catch(error:unknown){
