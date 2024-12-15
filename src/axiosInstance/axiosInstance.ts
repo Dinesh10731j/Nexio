@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 
 const axiosInstance = axios.create({
-   baseURL: "http://localhost:7777" ,//'https://nexio-api.onrender.com',
+   baseURL:'https://nexio-api.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
