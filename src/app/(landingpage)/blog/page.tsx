@@ -1,13 +1,14 @@
 "use client";
-import React from "react";
+import {useState} from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
-import { UseAllBlogs } from "@/hooks/useBlogs";
 import { Timer } from "lucide-react";
 import Link from "next/link";
+import Pagination from "@/components/Pagination";
+import { UsePagination } from "@/hooks/usePagination";
 
 interface themeState {
   theme: string;
@@ -19,7 +20,11 @@ interface RootState {
 
 const Blog = () => {
   const theme = useSelector((state: RootState) => state.theme.theme);
-  const { data: allBlogs, isLoading } = UseAllBlogs();
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { data: paginatedBlogs,isLoading} = UsePagination({ page: currentPage.toString() });
+
 
   const renderImage = (imageData: ImageData) => {
     return (
@@ -56,10 +61,10 @@ const Blog = () => {
             Loading...
           </div>
           
-          ) : allBlogs?.length === 0 ? (
+          ) : paginatedBlogs?.length === 0 ? (
             <p className="text-center col-span-full text-lg font-medium">No blogs found.</p>
           ) : (
-            allBlogs.map((blog: Blogs) => {
+            paginatedBlogs.map((blog: Blogs) => {
               const headerBlock = blog?.blocks?.find((block: { type: string }) => block.type === "header");
               const paragraphBlock = blog?.blocks?.find((block: { type: string }) => block.type === "paragraph");
               const imageBlock = blog?.blocks?.find((block: { type: string }) => block.type === "image");
@@ -105,11 +110,19 @@ const Blog = () => {
                       </Button>
                     </Link>
                   </div>
+
+                  
                 </div>
+              
               );
             })
           )}
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={paginatedBlogs?.totalPages || 1}
+          onPageChange={setCurrentPage}
+        />
       </div>
 
       <Footer />

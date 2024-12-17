@@ -41,10 +41,7 @@ const SingleBlog = () => {
   const blogId = params.blogId;
   const { data: blogResponse, isLoading } = UseBlogById(blogId);
   const {data:Views} = UseCountViews(blogId);
-  console.log("This is response",Views);
   const theme = useSelector((state: RootState) => state.theme.theme);
-
-  // Extract blog data from response
   const blog = blogResponse;
 
   if (isLoading) {
@@ -102,7 +99,7 @@ const SingleBlog = () => {
               <span className="hidden sm:block">|</span>
               <span className="flex items-center gap-2 text-green-700">
                 <Timer className="w-5 h-5" />
-                {blog?.readingTime || 5} min read
+                {blog?.readingTime ?? 5} min read
               </span>
               <span className="hidden sm:block">|</span>
               <span className="flex items-center gap-2 ">
