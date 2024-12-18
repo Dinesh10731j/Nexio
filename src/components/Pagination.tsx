@@ -2,7 +2,6 @@ import React from "react";
 import {
   Pagination as UIPagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -24,43 +23,86 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     if (currentPage < totalPages) onPageChange(currentPage + 1);
   };
 
+
+  const renderPageNumbers = () => {
+    const pages: (number | string)[] = [];
+
+    if (totalPages <= 7) {
+ 
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+   
+      pages.push(1);
+
+      if (currentPage > 4) {
+        pages.push("...");
+      }
+
+      const startPage = Math.max(2, currentPage - 2);
+      const endPage = Math.min(totalPages - 1, currentPage + 2);
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+
+      if (currentPage < totalPages - 3) {
+        pages.push("...");
+      }
+
+   
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
+
   return (
     <div className="flex justify-center p-4">
       <UIPagination>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              href="#"
-              onClick={handlePrevious}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text hover:from-blue-500 hover:to-purple-500"
+              onClick={currentPage === 1 ? undefined : handlePrevious}
+              className={`cursor-pointer ${
+                currentPage === 1
+                  ? "opacity-50 cursor-not-allowed"
+                  : "bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text hover:from-blue-500 hover:to-purple-500"
+              }`}
             />
           </PaginationItem>
 
-          {[...Array(totalPages)].map((_, index) => (
-            <PaginationItem key={index}>
-              <PaginationLink
-                href="#"
-                onClick={() => onPageChange(index + 1)}
-                className={`bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text hover:from-blue-500 hover:to-purple-500 ${
-                  currentPage === index + 1
-                    ? "font-bold underline bg-blue-500 text-purple-600 rounded-full"
-                    : "text-blue-600"
-                }`}
-              >
-                {index + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-
-          <PaginationItem>
-            <PaginationEllipsis className="bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text" />
-          </PaginationItem>
+          {renderPageNumbers().map((page, index) => (
+  <PaginationItem key={index}>
+    {typeof page === "number" ? (
+      <PaginationLink
+        onClick={(e) => {
+          e.preventDefault();
+          onPageChange(page);
+        }}
+        className={`cursor-pointer px-4 py-1 rounded-full ${
+          currentPage === page
+            ? "font-bold shadow-md bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-500 hover:to-purple-500"
+            : "text-purple-600"
+        }`}
+      >
+        {page}
+      </PaginationLink>
+    ) : (
+      <span className="px-2 text-gray-500">...</span>
+    )}
+  </PaginationItem>
+))}
 
           <PaginationItem>
             <PaginationNext
-              href="#"
-              onClick={handleNext}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text hover:from-blue-500 hover:to-purple-500"
+              onClick={currentPage === totalPages ? undefined : handleNext}
+              className={`cursor-pointer ${
+                currentPage === totalPages
+                  ? "opacity-50 cursor-not-allowed"
+                  : "bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text hover:from-blue-500 hover:to-purple-500"
+              }`}
             />
           </PaginationItem>
         </PaginationContent>

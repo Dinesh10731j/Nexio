@@ -26,6 +26,7 @@ const Blog = () => {
   const { data: paginatedBlogs,isLoading} = UsePagination({ page: currentPage.toString() });
 
 
+
   const renderImage = (imageData: ImageData) => {
     return (
       <div
@@ -64,7 +65,7 @@ const Blog = () => {
           ) : paginatedBlogs?.length === 0 ? (
             <p className="text-center col-span-full text-lg font-medium">No blogs found.</p>
           ) : (
-            paginatedBlogs.map((blog: Blogs) => {
+            paginatedBlogs?.data?.map((blog: Blogs) => {
               const headerBlock = blog?.blocks?.find((block: { type: string }) => block.type === "header");
               const paragraphBlock = blog?.blocks?.find((block: { type: string }) => block.type === "paragraph");
               const imageBlock = blog?.blocks?.find((block: { type: string }) => block.type === "image");
@@ -120,7 +121,7 @@ const Blog = () => {
         </div>
         <Pagination
           currentPage={currentPage}
-          totalPages={paginatedBlogs?.totalPages || 1}
+          totalPages={paginatedBlogs?.totalPages}
           onPageChange={setCurrentPage}
         />
       </div>
