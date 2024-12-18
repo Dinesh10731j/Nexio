@@ -25,7 +25,6 @@ const Blog = () => {
 
   const { data: paginatedBlogs,isLoading} = UsePagination({ page: currentPage.toString() });
 
-  console.log('This is totalPages',paginatedBlogs?.totalPages)
 
 
   const renderImage = (imageData: ImageData) => {
