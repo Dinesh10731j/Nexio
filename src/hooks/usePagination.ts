@@ -4,11 +4,12 @@ import { Endpoints } from "@/endpoints/endpoints";
 const {paginatePage} = Endpoints
 
 const usepagination = async ({page}:{page:string})=>{
+    console.log('This is the page',page)
     try{
 
         const response = await axiosInstance.get(`${paginatePage}?page=${page}&limit=6`);
 
-        return response.data.data;
+        return response.data;
 
 
     }catch(error:unknown){
