@@ -11,7 +11,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { signupType } from "@/types/Types";
 import { useSelector } from "react-redux";
 import { UseSignup } from "@/hooks/useSignup";
-import {motion} from "framer-motion"
+import {motion} from "framer-motion";
+import {DNA} from "react-loader-spinner"
 
 interface themeState {
   theme: string;
@@ -220,7 +221,22 @@ const Signup = () => {
                       : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600"
                   }`}
                 >
-                  Sign Up
+                  {
+                    signupMutation.isLoading?(
+                      <DNA
+                       
+                    visible={true}
+                    height="120"
+                    width="120"
+                    ariaLabel="dna-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="dna-wrapper"
+                      />
+                    ):(
+                      " Sign Up"
+                    )
+                  }
+                 
                 </Button>
               </motion.div>
             </form>

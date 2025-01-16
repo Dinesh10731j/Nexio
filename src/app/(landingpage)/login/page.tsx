@@ -12,6 +12,7 @@ import { loginType } from "@/types/Types";
 import { useSelector } from "react-redux";
 import { UseLogin } from "@/hooks/useLogin";
 import { motion } from "framer-motion";
+import {DNA} from "react-loader-spinner"
 
 interface themeState {
   theme: string;
@@ -165,7 +166,19 @@ const Login = () => {
                     : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600"
                 }`}
                 >
-                  Login
+                  {loginMutation.isLoading ? (
+                    <DNA
+                    
+                    visible={true}
+                    height="120"
+                    width="120"
+                    ariaLabel="dna-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="dna-wrapper"
+                    />
+                  ) : (
+                    "Login"
+                  )}
                 </Button>
               </motion.div>
             </form>

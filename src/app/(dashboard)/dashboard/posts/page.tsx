@@ -8,7 +8,7 @@ import { Timer, Trash2 } from "lucide-react";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 import { UseDeletePost } from "@/hooks/useDeletePost";
-
+import { DNA } from "react-loader-spinner";
 interface ImageData {
   type: string;
   data: {
@@ -87,7 +87,15 @@ const Posts = () => {
             : "bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text hover:from-blue-600 hover:to-teal-600"
         }`}
       >
-        Loading...
+       <DNA
+        
+        visible={true}
+        height="120"
+        width="120"
+        ariaLabel="dna-loading"
+        wrapperStyle={{}}
+        wrapperClass="dna-wrapper"
+       />
       </div>
     </div>
   ) : userPosts?.Posts?.length === 0 ? (
