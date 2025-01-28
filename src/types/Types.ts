@@ -48,6 +48,7 @@ export interface Block {
     withBorder?: boolean;
     withBackground?: boolean;
     stretched?: boolean;
+    code:string
   };
 }
 

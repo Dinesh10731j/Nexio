@@ -6,12 +6,11 @@ import { UseCountViews } from "@/hooks/useCountViews";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Image from "next/image";
-import { Timer, UserCircle,EyeIcon} from "lucide-react";
+import { Timer, UserCircle, EyeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Key } from "react";
-
 
 interface ImageBlockData {
   file?: {
@@ -28,6 +27,10 @@ interface ListBlockData {
   items: string[];
 }
 
+interface CodeBlockData {
+  code: string;
+}
+
 interface ThemeState {
   theme: string;
 }
@@ -40,7 +43,7 @@ const SingleBlog = () => {
   const params = useParams() as { blogId: string };
   const blogId = params.blogId;
   const { data: blogResponse, isLoading } = UseBlogById(blogId);
-  const {data:Views} = UseCountViews(blogId);
+  const { data: Views } = UseCountViews(blogId);
   const theme = useSelector((state: RootState) => state.theme.theme);
   const blog = blogResponse;
 
@@ -72,7 +75,7 @@ const SingleBlog = () => {
               src={
                 blog?.blocks?.find(
                   (block: { type: string }) => block.type === "image"
-                )?.data?.file?.url || "/default-thumbnail.jpg"
+                )?.data?.file?.url ?? "https://res.cloudinary.com/dztcsje3w/image/upload/v1731754135/pedpymkeswzcxsdidzi1.png"
               }
               alt="Blog Image"
               width={1200}
@@ -88,10 +91,7 @@ const SingleBlog = () => {
             </h1>
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-gray-500 text-sm mb-4">
               <span className="flex items-center gap-2">
-                
-                  <UserCircle className="w-5 h-5" />
-                
-
+                <UserCircle className="w-5 h-5" />
                 <strong>{blog?.author?.name || "Unknown Author"}</strong>
               </span>
               <span className="hidden sm:block">|</span>
@@ -106,7 +106,6 @@ const SingleBlog = () => {
                 <EyeIcon className="w-5 h-5" />
                 {Views?.views ?? 0}
               </span>
-
             </div>
             <Button variant="default" className="mt-4">
               Share Article
@@ -121,7 +120,7 @@ const SingleBlog = () => {
             (block: {
               type: unknown;
               id: Key | null | undefined;
-              data: ImageBlockData | TextBlockData | ListBlockData;
+              data: ImageBlockData | TextBlockData | ListBlockData | CodeBlockData;
             }) => {
               switch (block.type) {
                 case "header":
@@ -148,6 +147,15 @@ const SingleBlog = () => {
                       ))}
                     </ul>
                   );
+
+                case "code":
+                  const codeData = block.data as CodeBlockData;
+                  return (
+                    <pre key={block.id} className="bg-gray-800 p-4 rounded-lg mb-6 overflow-auto">
+                      <code className="text-white">{codeData.code}</code>
+                    </pre>
+                  );
+
                 default:
                   return null;
               }

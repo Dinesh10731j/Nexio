@@ -7,8 +7,10 @@ import List from "@editorjs/list";
 import Paragraph from "@editorjs/paragraph";
 import Header from "@editorjs/header";
 import Table from "@editorjs/table";
+import CodeTool from "@editorjs/code"; // Import CodeTool
 import { UseUploadToCloudinary } from "@/hooks/useUploadImageToCloudinary";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
+
 interface themeState {
   theme: string;
 }
@@ -17,18 +19,16 @@ interface RootState {
   theme: themeState;
 }
 
-
 interface EditorjsProps {
   onInit: (editor: EditorJS) => void;
 }
 
 const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
   const editorInstanceRef = useRef<EditorJS | null>(null);
-
-  const theme = useSelector((theme:RootState)=>theme.theme.theme)
+  const theme = useSelector((state: RootState) => state.theme.theme);
 
   useEffect(() => {
-    if (editorInstanceRef.current) { 
+    if (editorInstanceRef.current) {
       return;
     }
 
@@ -48,14 +48,13 @@ const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
           class: ImageTool as ToolConstructable,
           config: {
             uploader: {
-             
               async uploadByFile(file: File) {
                 try {
                   const url = await UseUploadToCloudinary(file);
                   return {
                     success: 1,
                     file: {
-                      url, 
+                      url,
                     },
                   };
                 } catch (error) {
@@ -75,6 +74,12 @@ const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
         },
         list: List,
         table: Table,
+        code: {
+          class: CodeTool as ToolConstructable, // Add the CodeTool
+          config: {
+            placeholder: "Write your code here...",
+          },
+        },
       },
       autofocus: true,
       data: {
@@ -87,24 +92,12 @@ const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
             },
           },
           {
-            type: "image",
-            data: {
-              file: {
-                url: "", 
-              },
-              
-              withBorder: true,
-              stretched: true,
-              withBackground: true,
-            },
-          },
-          {
             type: "paragraph",
             data: {
               text: "Write the main content of your blog here...",
             },
           },
-        ],
+        ], // No initial code block
       },
     });
 
@@ -119,14 +112,12 @@ const Editorjs: React.FC<EditorjsProps> = ({ onInit }) => {
     };
   }, [onInit]);
 
-  return  <div
-  id="editorjs"
-  className={`w-[300px] md:w-full h-full  rounded-md  ${
-    theme === "dark" ? "text-white" : "text-black"
-  }`}
-  
->
-</div>
+  return (
+    <div
+      id="editorjs"
+      className={`w-[300px] md:w-full h-full rounded-md ${theme === "dark" ? "text-white" : "text-black"}`}
+    ></div>
+  );
 };
 
 export default Editorjs;
