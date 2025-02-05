@@ -1,7 +1,6 @@
 "use client"; 
 
 import React, { useState, useEffect } from "react";
-import { Input } from "./ui/input";
 import Link from "next/link";
 import { Menu, Moon, Sun,XIcon } from "lucide-react";
 import Nexio_Logo from "../assets/Nexio_Logo.png";
@@ -94,7 +93,7 @@ const Header = () => {
         theme === "dark" ? "dark:bg-gray-900" : "bg-white"
       } ${isScrolled ? "backdrop-blur-md" : ""}`}
     >
-      <div className="container mx-auto flex justify-evenly gap-1 md:gap-7 items-center p-4">
+      <div className="container mx-auto flex justify-between gap-1 md:gap-7 items-center p-4">
         <Image
           src={Nexio_Logo}
           alt="nexio_logo"
@@ -149,15 +148,7 @@ const Header = () => {
           </Link>
         </nav>
 
-        <Input
-          placeholder="Search..."
-          className={`block w-52 mt-1 p-2 rounded-md shadow-sm ${
-            theme === "dark"
-              ? "border-gray-600 bg-gray-700 text-gray-300 placeholder-gray-500"
-              : "border-gray-300 bg-white text-gray-800 placeholder-gray-500"
-          } focus:ring-blue-500 focus:border-blue-500`}
-        />
-
+     
         <Button onClick={handleMode}>
           {theme === "dark" ? (
             <Sun className="text-orange-300" />

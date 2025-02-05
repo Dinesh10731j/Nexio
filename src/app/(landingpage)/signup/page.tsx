@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -61,7 +59,6 @@ const Signup = () => {
 
   return (
     <>
-      <Header />
       <motion.div
        initial="hidden"
        animate="visible"
@@ -253,7 +250,7 @@ const Signup = () => {
           </motion.div>
         </div>
       </motion.div>
-      <Footer />
+
     </>
   );
 };

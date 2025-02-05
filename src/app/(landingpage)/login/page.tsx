@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -40,7 +38,6 @@ const Login = () => {
 
   return (
     <>
-      <Header />
       <div
         className={`min-h-screen flex items-center justify-center py-10 px-4 ${
           theme === "dark" ? "bg-gray-900" : "bg-white"
@@ -195,7 +192,6 @@ const Login = () => {
           </motion.div>
         </motion.div>
       </div>
-      <Footer />
     </>
   );
 };

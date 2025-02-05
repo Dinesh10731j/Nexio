@@ -2,7 +2,6 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import frontImg from "../../../assets/Image.png";
-import Footer from "@/components/footer";
 import { useSelector } from "react-redux";
 import { UseAllBlogs } from "@/hooks/useBlogs";
 import Link from "next/link";
@@ -227,8 +226,6 @@ const Home = () => {
           )}
         </section>
       </motion.div>
-
-      <Footer />
     </>
   );
 };

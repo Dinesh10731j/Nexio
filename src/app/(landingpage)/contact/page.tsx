@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import Image from "next/image";
 import dummyImage from "../../../assets/Image.png";
 import { Input } from "@/components/ui/input";
@@ -65,7 +63,6 @@ const imageVariants = {
 
   return (
     <>
-      <Header />
       <motion.div
        initial="hidden"
        animate="visible"
@@ -302,7 +299,6 @@ const imageVariants = {
           </div>
         </div>
       </motion.div>
-      <Footer />
     </>
   );
 };

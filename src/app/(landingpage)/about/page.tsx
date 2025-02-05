@@ -1,7 +1,5 @@
 'use client';
 import React from 'react';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import Image from 'next/image';
 import dummyImage from "../../../assets/Image.png";
 import { useSelector } from 'react-redux';
@@ -47,7 +45,7 @@ const About = () => {
 
   return (
     <>
-      <Header />
+     
       <motion.div
         initial="hidden"
         animate="visible"
@@ -131,7 +129,7 @@ const About = () => {
           </motion.div>
         </div>
       </motion.div>
-      <Footer />
+   
     </>
   );
 };
